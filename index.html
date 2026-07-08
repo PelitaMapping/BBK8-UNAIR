@@ -243,9 +243,9 @@
     ];
 
     const deskripsiJurusan = {
-        "SMA IPA / MA Ilmu Alam": "Fokus pada ilmu pasti, sains, kesehatan, dan logika. Cocok karena kamu dominan di area Berpikir (Thinking) dan Menalar (Reasoning).",
-        "SMA IPS / MA Ilmu Sosial": "Fokus pada interaksi sosial, masyarakat, dan tata negara. Sesuai dengan kemampuan kuatmu di ranah Interpersonal (Networking & Headman).",
-        "SMA Bahasa & Sastra": "Fokus pada komunikasi, linguistik, dan kebudayaan. Sangat pas untukmu yang cakap dalam menyampaikan ide dan bahasa.",
+        "SMA/MA Ilmu Alam (IPA)": "Fokus pada ilmu pasti, sains, kesehatan, dan logika. Cocok karena kamu dominan di area Berpikir (Thinking) dan Menalar (Reasoning).",
+        "SMA/MA Ilmu Sosial (IPS)": "Fokus pada interaksi sosial, masyarakat, dan tata negara. Sesuai dengan kemampuan kuatmu di ranah Interpersonal (Networking & Headman).",
+        "SMA/MA Bahasa & Sastra": "Fokus pada komunikasi, linguistik, dan kebudayaan. Sangat pas untukmu yang cakap dalam menyampaikan ide dan bahasa.",
         "SMK Teknik / Rekayasa / IT": "Jurusan seperti Teknik Mesin, TKJ, RPL, atau Otomotif. Cocok dengan ketertarikanmu pada hal-hal praktis, teknologi, dan operasional (Technical).",
         "SMK Bisnis, Manajemen & Akuntansi": "Jurusan seperti Akuntansi, Administrasi Perkantoran, atau Pemasaran. Sesuai dengan sifatmu yang rapi, teratur, dan teliti (Elementary/Headman).",
         "SMK Seni, Desain & Industri Kreatif": "Jurusan seperti Multimedia, DKV, Tata Busana, atau Animasi. Sangat mendukung ide-ide kreatif dan inovatifmu (Generating Idea).",
@@ -383,14 +383,23 @@
 
     function kalkulasiRekomendasi() {
         let skorJurusan = {
-            "SMA IPA / MA Ilmu Alam": 0,
-            "SMA IPS / MA Ilmu Sosial": 0,
-            "SMA Bahasa & Sastra": 0,
+            "SMA/MA Ilmu Alam (IPA)": 0,
+            "SMA/MA Ilmu Sosial (IPS)": 0,
+            "SMA/MA Bahasa & Sastra": 0,
             "SMK Teknik / Rekayasa / IT": 0,
             "SMK Bisnis, Manajemen & Akuntansi": 0,
             "SMK Seni, Desain & Industri Kreatif": 0,
             "SMK Kesehatan & Pekerjaan Sosial": 0,
             "Pendidikan Pesantren / Madrasah Aliyah Agama": 0
+
+        let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] - skorJurusan[a]);
+        let rekomendasiHTML = "";
+        for(let i = 0; i < 2; i++) { // DIBATASI HANYA 2
+            if(skorJurusan[urutanRekomendasi[i]] > 0) { 
+                rekomendasiHTML += `<li><b>${urutanRekomendasi[i]}</b><br><span style="color:#555; font-size:0.9em;">${deskripsiJurusan[urutanRekomendasi[i]]}</span></li>`;
+            }
+        }
+        document.getElementById("listRekomendasi").innerHTML = rekomendasiHTML;
         };
 
         // Ambil data hanya yang berwarna merah dari statusWarna 
@@ -398,22 +407,22 @@ const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] ==
         
         kekuatanMerahAktual.forEach(item => {
             if(item.cluster === "T (Thinking)" || item.cluster === "R (Reasoning)") {
-                skorJurusan["SMA IPA / MA Ilmu Alam"] += 2;
+                skorJurusan["SMA/MA Ilmu Alam (IPA)"] += 2;
                 skorJurusan["SMK Teknik / Rekayasa / IT"] += 1;
             }
             if(item.cluster === "H (Headman)" || item.cluster === "N (Networking)") {
-                skorJurusan["SMA IPS / MA Ilmu Sosial"] += 2;
+                skorJurusan["SMA/MA Ilmu Sosial (IPS)"] += 2;
                 skorJurusan["SMK Bisnis, Manajemen & Akuntansi"] += 1;
                 skorJurusan["Pendidikan Pesantren / Madrasah Aliyah Agama"] += 1; 
             }
             if(item.cluster === "S (Servicing)") {
                 skorJurusan["SMK Kesehatan & Pekerjaan Sosial"] += 2;
                 skorJurusan["Pendidikan Pesantren / Madrasah Aliyah Agama"] += 1;
-                skorJurusan["SMA IPS / MA Ilmu Sosial"] += 1;
+                skorJurusan["SMA/MA Ilmu Sosial (IPS)"] += 1;
             }
             if(item.cluster === "Gi (Generating Idea)") {
                 skorJurusan["SMK Seni, Desain & Industri Kreatif"] += 2;
-                skorJurusan["SMA Bahasa & Sastra"] += 1;
+                skorJurusan["SMA/MA Bahasa & Sastra"] += 1;
             }
             if(item.cluster === "E (Elementary)") {
                 skorJurusan["SMK Bisnis, Manajemen & Akuntansi"] += 2;
@@ -422,7 +431,7 @@ const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] ==
                 skorJurusan["SMK Teknik / Rekayasa / IT"] += 2;
             }
             if(item.singkatan === "INT" || item.singkatan === "COM") {
-                skorJurusan["SMA Bahasa & Sastra"] += 2;
+                skorJurusan["SMA/MA Bahasa & Sastra"] += 2;
             }
         });
 
