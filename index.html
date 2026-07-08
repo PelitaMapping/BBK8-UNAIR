@@ -78,6 +78,11 @@
         .item-warna { display: flex; align-items: center; gap: 8px; font-size: 0.9em; color: #333; }
         .ikon-warna { width: 25px; height: 25px; border-radius: 50%; }
 
+        .result-section, .map-container, .keterangan-container, table {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            display: block;
+        }
         /* --- STYLING KHUSUS UNTUK PDF (WATERMARK LOGO) --- */
         .mode-cetak {
             position: relative;
@@ -721,7 +726,7 @@ function unduhPDF() {
             filename:     `Hasil_Tes Minat Bakat_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-            pagebreak:    { mode: 'avoid-all' },
+            pagebreak:    { mode: ['css', 'legacy', 'avoid-all'] }, // Paksa baca semua mode
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
