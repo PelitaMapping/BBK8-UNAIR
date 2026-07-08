@@ -740,42 +740,55 @@ function unduhPDF() {
     const btn = document.getElementById('btnDownload');
     const area = document.getElementById('areaCetak');
     
+    // Sembunyikan tombol sebelum generate
     btn.style.display = 'none';
     area.classList.add('mode-cetak');
     window.scrollTo(0, 0);
 
     const opsiPDF = {
-        margin: [10, 10, 20, 10], 
-        filename: `Hasil_Tes_Minat_Bakat_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
+        margin: [10, 10, 20, 10],
+        filename: `Hasil_Tes_Minat_Bakat_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
         pagebreak: { mode: ['css', 'legacy'] },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
+    // Menggunakan worker pattern yang lebih stabil
     html2pdf().set(opsiPDF).from(area).toPdf().get('pdf').then(function (pdf) {
-        const totalPages = pdf.internal.getNumberOfPages();
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const centerX = pageWidth / 2; // Titik tengah untuk perataan teks
+        try {
+            const totalPages = pdf.internal.getNumberOfPages();
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const centerX = pageWidth / 2;
 
-        for (let i = 1; i <= totalPages; i++) {
-            pdf.setPage(i);
-            
-            // Footer Baris 1
-            pdf.setFontSize(9);
-            pdf.setTextColor(150, 150, 150); 
-            const teksFooter1 = `Report Tes Minat Bakat - ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
-            pdf.text(teksFooter1, centerX, pdf.internal.pageSize.getHeight() - 12, { align: 'center' });
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                
+                // Footer Baris 1
+                pdf.setFontSize(9);
+                pdf.setTextColor(150, 150, 150); 
+                const teksFooter1 = `Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
+                pdf.text(teksFooter1, centerX, pdf.internal.pageSize.getHeight() - 12, { align: 'center' });
 
-            // Footer Baris 2
-            pdf.setFontSize(5); 
-            pdf.setTextColor(180, 180, 180); 
-            const teksFooter2 = "Bukan untuk tujuan komersial. Diadaptasi dari ST-30 hak cipta Talents Mapping®.";
-            pdf.text(teksFooter2, centerX, pdf.internal.pageSize.getHeight() - 8, { align: 'center' });
+                // Footer Baris 2
+                pdf.setFontSize(5); 
+                pdf.setTextColor(180, 180, 180); 
+                const teksFooter2 = "Bukan untuk tujuan komersial. Diadaptasi dari ST-30 hak cipta Talents Mapping®.";
+                pdf.text(teksFooter2, centerX, pdf.internal.pageSize.getHeight() - 8, { align: 'center' });
+            }
+        } catch (e) {
+            console.error("Error saat memproses PDF:", e);
+            alert("Terjadi kesalahan saat menyusun PDF. Cek konsol browser (F12).");
         }
-    }).save().then(() => {
+    }).save().then(function() {
+        // Kembalikan UI setelah proses download terpicu
         btn.style.display = 'block';
         area.classList.remove('mode-cetak');
+    }).catch(function(err) {
+        console.error("Gagal generate PDF:", err);
+        btn.style.display = 'block';
+        area.classList.remove('mode-cetak');
+        alert("Gagal mengunduh PDF. Pastikan koneksi internet stabil.");
     });
 }
 </script>
