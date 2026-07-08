@@ -744,14 +744,6 @@ function unduhPDF() {
         area.classList.add('mode-cetak'); // Aktifkan mode watermark sebelum dijepret PDF
         window.scrollTo(0, 0);
 
-function unduhPDF() {
-    const btn = document.getElementById('btnDownload');
-    const area = document.getElementById('areaCetak');
-    
-    btn.style.display = 'none';
-    area.classList.add('mode-cetak');
-    window.scrollTo(0, 0);
-
     const opsiPDF = {
         margin: [10, 10, 20, 10], // Margin bawah diperbesar (20) agar footer tidak mepet
         filename: `Hasil_Tes Minat Bakat_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
