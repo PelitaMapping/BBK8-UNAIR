@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tes Potensi ST30</title>
+    <title>Tes Potensi Minat dan Bakat</title>
     
     <meta name="robots" content="noindex, nofollow"> 
     
@@ -102,8 +102,8 @@
 
 <div id="modalPanduan" class="modal-overlay">
     <div class="modal-content">
-        <h2>Panduan Pengerjaan Tes ST-30</h2>
-        <p>Tes ST-30 dirancang untuk membantu Anda mengenali kekuatan dan karakteristik unik dalam diri. Tes ini terdiri dari 3 tahap seleksi yang akan membantu mengidentifikasi pola kepribadian Anda.</p>
+        <h2>Panduan Pengerjaan Tes Minat Bakat</h2>
+        <p>Tes ini dirancang untuk membantu Anda mengenali kekuatan dan karakteristik unik dalam diri. Tes ini terdiri dari 3 tahap seleksi yang akan membantu mengidentifikasi pola kepribadian Anda.</p>
         
         <h3>Tahapan Pengerjaan</h3>
         <p><b>1. Identifikasi Karakteristik Diri</b><br>Pilih 10-20 pernyataan dari 30 yang tersedia yang sesuai dengan dirimu.<br><i>Tips: Pilih pernyataan yang terasa natural dan sering kamu lakukan dalam kehidupan sehari-hari.</i></p>
@@ -183,7 +183,7 @@
 
     <div id="hasil" class="stage">
         <div class="result-header">
-            <h2 style="margin: 0; color: #2c3e50;">Laporan Hasil Asesmen ST-30 </h2>
+            <h2 style="margin: 0; color: #2c3e50;">Laporan Hasil Asesmen</h2>
         </div>
         
 <table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
@@ -202,7 +202,7 @@
         </table>
 
         <div class="map-container">
-            <h3 class="map-title">Strength Typology (ST-30)</h3>
+            <h3 class="map-title">Peta Potensi Minat Bakat (Berdasarkan ST-30)</h3>
             <div class="map-grid" id="petaVisualArea"></div>
         </div>
 
@@ -718,7 +718,7 @@ function unduhPDF() {
 
         const opsiPDF = {
             margin:       [10, 10, 15, 10], // Margin atas, kiri, bawah, kanan
-            filename:     `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
+            filename:     `Hasil_Tes Minat Bakat_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
             pagebreak:    { mode: 'avoid-all' },
@@ -735,7 +735,7 @@ function unduhPDF() {
                 // Tulisan Footer Baris 1 (Nama & Info KKN)
                 pdf.setFontSize(9);
                 pdf.setTextColor(150, 150, 150); 
-                const teksFooter1 = `report ST-30 - ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
+                const teksFooter1 = `Report Tes Minat Bakat- ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
                 const x1 = pdf.internal.pageSize.getWidth() / 2;
                 const y1 = pdf.internal.pageSize.getHeight() - 12; // Posisi agak naik sedikit
                 pdf.text(teksFooter1, x1, y1, { align: 'center' });
@@ -743,7 +743,7 @@ function unduhPDF() {
                 // Tulisan Footer Baris 2 (Disclaimer Hak Cipta)
                 pdf.setFontSize(7); // Ukuran font lebih kecil
                 pdf.setTextColor(180, 180, 180); // Warna abu-abu lebih terang
-                const teksFooter2 = "Bukan untuk tujuan komersial. Konsep ST-30 adalah hak cipta Talents Mapping®.";
+                const teksFooter2 = "Bukan untuk tujuan komersial. Diadaptasi dari ST-30 hak cipta Talents Mapping®.";
                 const y2 = pdf.internal.pageSize.getHeight() - 7; // Posisi di bawah baris 1
                 pdf.text(teksFooter2, x1, y2, { align: 'center' });
             }
@@ -756,7 +756,7 @@ function unduhPDF() {
 
     <div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 0.85em; color: #777; border-top: 1px solid #ddd;">
         <p style="margin: 0;"><b>Perhatian:</b> Aplikasi ini dikembangkan secara independen sebagai prototipe terbatas untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.</p>
-        <p style="margin: 5px 0 0 0;">Konsep dan kerangka ST30 merupakan hak cipta dari Talents Mapping®. Alat ini digunakan khusus untuk tujuan pendidikan (internal) dan tidak untuk dikomersialkan.</p>
+        <p style="margin: 5px 0 0 0;">Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari kerangka Strength Typology-30 (ST30) dan bukan merupakan produk atau layanan resmi dari Talents Mapping®. Tidak untuk dikomersialkan.</p>
     </div>
 
 </body>
