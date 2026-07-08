@@ -769,17 +769,17 @@ function unduhPDF() {
                 // Tulisan Footer Baris 1 (Nama & Info KKN)
                 pdf.setFontSize(9);
                 pdf.setTextColor(150, 150, 150); 
-                const teksFooter1 = `Report Tes Minat Bakat- ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
+                const teksFooter1 = `Report Tes Minat Bakat - ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
                 const x1 = pdf.internal.pageSize.getWidth() / 2;
                 const y1 = pdf.internal.pageSize.getHeight() - 12; // Posisi agak naik sedikit
                 pdf.text(teksFooter1, x1, y1, { align: 'center' });
 
                 // Tulisan Footer Baris 2 (Disclaimer Hak Cipta)
-                pdf.setFontSize(7); // Ukuran font lebih kecil
-                pdf.setTextColor(180, 180, 180); // Warna abu-abu lebih terang
+                pdf.setFontSize(5); 
+                pdf.setTextColor(180, 180, 180); 
                 const teksFooter2 = "Bukan untuk tujuan komersial. Diadaptasi dari ST-30 hak cipta Talents Mapping®.";
-                const y2 = pdf.internal.pageSize.getHeight() - 7; // Posisi di bawah baris 1
-                pdf.text(teksFooter2, x1, y2, { align: 'center' });
+                const y2 = pdf.internal.pageSize.getHeight() - 8; // Posisi baris 2 (dibuat mepet ke bawah)
+                pdf.text(teksFooter2, x, y2, { align: 'center' });
             }
         }).save().then(() => {
             btn.style.display = 'block';
