@@ -283,7 +283,7 @@
         dataArray.forEach(item => {
             const label = document.createElement("label");
             label.className = "item-card";
-            label.innerHTML = `<input type="checkbox" name="${inputName}" value="${item.id}" onchange="updateCounter('${inputName}', '${counterId}')"><span>${item.deskripsi}</span>`;
+            label.innerHTML = `<input type="checkbox" name="${inputName}" value="${item.id}" onchange="updateCounter('${inputName}', '${counterId}')"><span>${item.pernyataan}</span>`;
             container.appendChild(label);
         });
     }
@@ -343,8 +343,8 @@
         listHitam.innerHTML = "";
 
         databasePeran.forEach(item => {
-            if (statusWarna[item.id] === 'warna-merah') listMerah.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
-            if (statusWarna[item.id] === 'warna-hitam') listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
+            if (statusWarna[item.id] === 'warna-merah') listMerah.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
+            if (statusWarna[item.id] === 'warna-hitam') listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
         });
         
         renderPetaVisual();
