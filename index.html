@@ -68,6 +68,13 @@
         .warna-kuning { background-color: #ffff66; color: black; border-color: #cccc00; }
         .warna-hitam { background-color: #333333; color: white; border-color: #000000; }
         .warna-putih { background-color: #ffffff; color: #777; border-color: #ccc; }
+
+        /* --- KETERANGAN WARNA --- */
+        .keterangan-container { background: #fff; padding: 15px 20px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 25px; page-break-inside: avoid; }
+        .keterangan-judul { text-align: center; margin-top: 0; margin-bottom: 15px; color: #555; font-size: 1.1em; }
+        .keterangan-warna { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .item-warna { display: flex; align-items: center; gap: 8px; font-size: 0.9em; color: #333; }
+        .ikon-warna { width: 25px; height: 25px; border-radius: 50%; }
     </style>
 </head>
 <body>
@@ -169,11 +176,14 @@
             <div class="map-grid" id="petaVisualArea"></div>
         </div>
 
-        <div class="keterangan-warna">
-            <div class="item-warna"><div class="ikon-warna" style="background: #ff3333; border: 2px solid #cc0000;"></div><b>Merah:</b> Sangat Sesuai (Kekuatan Utama)</div>
-            <div class="item-warna"><div class="ikon-warna" style="background: #ffff66; border: 2px solid #cccc00;"></div><b>Kuning:</b> Sesuai (Potensi Pendukung)</div>
-            <div class="item-warna"><div class="ikon-warna" style="background: #ffffff; border: 2px solid #ccc;"></div><b>Putih:</b> Netral / Biasa Saja</div>
-            <div class="item-warna"><div class="ikon-warna" style="background: #333333; border: 2px solid #000;"></div><b>Hitam:</b> Keterbatasan (Sangat Tidak Sesuai)</div>
+        <div class="keterangan-container">
+            <h4 class="keterangan-judul">Keterangan Warna:</h4>
+            <div class="keterangan-warna">
+                <div class="item-warna"><div class="ikon-warna" style="background: #ff3333; border: 2px solid #cc0000;"></div><b>Merah:</b> Sangat Sesuai (Kekuatan Utama)</div>
+                <div class="item-warna"><div class="ikon-warna" style="background: #ffff66; border: 2px solid #cccc00;"></div><b>Kuning:</b> Sesuai (Potensi Pendukung)</div>
+                <div class="item-warna"><div class="ikon-warna" style="background: #ffffff; border: 2px solid #ccc;"></div><b>Putih:</b> Netral</div>
+                <div class="item-warna"><div class="ikon-warna" style="background: #333333; border: 2px solid #000;"></div><b>Hitam:</b> Keterbatasan (Sangat Tidak Sesuai)</div>
+            </div>
         </div>
         
         <div class="result-section merah-box">
