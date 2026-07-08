@@ -744,21 +744,27 @@ function unduhPDF() {
         area.classList.add('mode-cetak'); // Aktifkan mode watermark sebelum dijepret PDF
         window.scrollTo(0, 0);
 
-const opsiPDF = {
-            margin:       [10, 10, 15, 10],
-            filename:     `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-            pagebreak:    { mode: ['css', 'legacy'] }, // Menggunakan mode css + legacy agar tag html2pdf__page-break aktif
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
+function unduhPDF() {
+    const btn = document.getElementById('btnDownload');
+    const area = document.getElementById('areaCetak');
+    
+    btn.style.display = 'none';
+    area.classList.add('mode-cetak');
+    window.scrollTo(0, 0);
 
-        // Proses generate PDF
-// Proses generate PDF
-        html2pdf().set(opsiPDF).from(area).toPdf().get('pdf').then(function (pdf) {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = 1; i <= totalPages; i++) {
-                pdf.setPage(i);
+    const opsiPDF = {
+        margin: [10, 10, 20, 10], // Margin bawah diperbesar (20) agar footer tidak mepet
+        filename: `Hasil_Tes Minat Bakat_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+        pagebreak: { mode: ['css', 'legacy'] },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opsiPDF).from(area).toPdf().get('pdf').then(function (pdf) {
+        const totalPages = pdf.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
                 
                 // Tulisan Footer Baris 1 (Nama & Info KKN)
                 pdf.setFontSize(9);
@@ -782,10 +788,10 @@ const opsiPDF = {
     }
 </script>
 
-    <div style="text-align: center; margin-top: 50px; padding: 20px; font-size: 0.85em; color: #777; border-top: 1px solid #ddd;">
-        <p style="margin: 0;"><b>Perhatian:</b> Aplikasi ini dikembangkan secara independen sebagai prototipe terbatas untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.</p>
-        <p style="margin: 5px 0 0 0;">Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari kerangka Strength Typology-30 (ST30) dan bukan merupakan produk atau layanan resmi dari Talents Mapping®. Tidak untuk dikomersialkan.</p>
-    </div>
+<div style="text-align: center; margin-top: 40px; padding: 10px; font-size: 0.7em; color: #777; border-top: 1px solid #eee;">
+    <p style="margin: 0;"><b>Perhatian:</b> Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.</p>
+    <p style="margin: 2px 0 0 0;">Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.</p>
+</div>
 
 </body>
 </html>
