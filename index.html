@@ -184,10 +184,19 @@
             <h2 style="margin: 0; color: #2c3e50;">Laporan Hasil Asesmen ST-30 </h2>
         </div>
         
-        <table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
-            <tr><th style="width: 100px;">Nama</th><td id="resNama">: -</td></tr>
-            <tr><th>Kelas</th><td id="resKelas">: -</td></tr>
-            <tr><th>Asal Sekolah</th><td id="resSekolah">: -</td></tr>
+<table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+            <tr>
+                <th style="width: 120px; text-align: left;">Nama</th>
+                <td id="resNama">: -</td>
+            </tr>
+            <tr>
+                <th style="text-align: left;">Kelas</th>
+                <td id="resKelas">: -</td>
+            </tr>
+            <tr>
+                <th style="text-align: left;">Asal Sekolah</th>
+                <td id="resSekolah">: -</td>
+            </tr>
         </table>
 
         <div class="map-container">
@@ -723,7 +732,7 @@ function unduhPDF() {
                 pdf.setFontSize(9);
                 pdf.setTextColor(150, 150, 150); // Warna teks footer (abu-abu)
                 
-                const teksFooter = "Report ST-30 | BBK 8 Oro-Oro Ombo 1 UNAIR";
+            const teksFooter = `report ST-30 - ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
                 
                 // Posisikan di tengah bawah halaman
                 const x = pdf.internal.pageSize.getWidth() / 2;
