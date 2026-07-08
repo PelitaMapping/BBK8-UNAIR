@@ -39,15 +39,19 @@
         .btn-download:hover { background-color: #218838; }
         
         .result-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #eee; }
-        .result-section { margin-top: 20px; padding: 20px; border-radius: 8px; }
+        .result-section { margin-top: 20px; padding: 20px; border-radius: 8px; page-break-inside: avoid; }
         .merah-box { background-color: #fff0f0; border: 2px solid #ffcccc; }
         .hitam-box { background-color: #f8f9fa; border: 2px solid #e9ecef; }
         
         .instruction-box { background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #ffeeba; }
         .counter-text { font-weight: bold; color: #007bff; margin-bottom: 15px; }
 
+        /* --- STYLING HEADER 3 LOGO --- */
+        .logo-container { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 20px; }
+        .logo-container img { max-height: 70px; width: auto; object-fit: contain; }
+
         /* --- STYLING PETA VISUAL --- */
-        .map-container { background: #fff; padding: 20px; border: 2px solid #2c3e50; border-radius: 10px; margin-bottom: 30px; }
+        .map-container { background: #fff; padding: 20px; border: 2px solid #2c3e50; border-radius: 10px; margin-bottom: 30px; page-break-inside: avoid; }
         .map-title { text-align: center; font-weight: bold; color: #2c3e50; margin-top: 0; }
         .map-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
         .cluster-group { display: flex; flex-direction: column; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 180px; }
@@ -62,7 +66,6 @@
         .warna-kuning { background-color: #ffff66; color: black; border-color: #cccc00; }
         .warna-hitam { background-color: #333333; color: white; border-color: #000000; }
         .warna-putih { background-color: #ffffff; color: #777; border-color: #ccc; }
-        /* --------------------------- */
     </style>
 </head>
 <body>
@@ -82,9 +85,15 @@
 </div>
 
 <div class="container" id="areaCetak">
-    <img src="LOGOKel1.png" alt="Logo" style="max-height: 80px; display: block; margin: 0 auto 15px auto;">
     
-    <h2 style="text-align: center; color: #2c3e50;" id="judulUtama">Asesmen Minat dan Bakat </h2>
+    <div class="logo-container">
+        <img src="LOGOKel1.png" alt="Logo 1" onerror="this.style.display='none'">
+        <img src="logoUNAIR.png" alt="Logo 2" onerror="this.style.display='none'">
+        <img src="LogoLPMB.png" alt="Logo 3" onerror="this.style.display='none'">
+    </div>
+
+    <h2 style="text-align: center; color: #2c3e50;" id="judulUtama">Asesmen Peta Kekuatan</h2>
+    <hr style="border: 0; height: 1px; background: #ddd; margin-bottom: 25px;" id="garisBatas">
 
     <div id="tahapIdentitas" class="stage active">
         <h3>Data Diri Peserta</h3>
@@ -149,7 +158,6 @@
 <script>
     function tutupModal() { document.getElementById('modalPanduan').style.display = 'none'; }
 
-    // DATABASE 30 SOAL + SINGKATAN (Kode) + CLUSTER (Kelompok)
     const databasePeran = [
         { id: "1", nama: "Administrator", singkatan: "ADM", cluster: "E (Elementary)", deskripsi: "Pengelola catatan, jadwal aktivitas dan dokumen kerja yang rapi dan teratur" },
         { id: "2", nama: "Ambassador", singkatan: "AMB", cluster: "N (Networking)", deskripsi: "Menjadi perwakilan dan juru bicara kelompok dalam berhubungan dengan pihak lain" },
@@ -184,7 +192,7 @@
     ];
 
     let dataPeserta = {};
-    let statusWarna = {}; // Menyimpan warna tiap ID
+    let statusWarna = {}; 
 
     function mulaiTes() {
         const nama = document.getElementById("inputNama").value.trim();
@@ -192,11 +200,16 @@
         const sekolah = document.getElementById("inputSekolah").value.trim();
         if (!nama || !kelas || !sekolah) { alert("Lengkapi data!"); return; }
         
+        const idUnik = (nama + "_" + kelas + "_" + sekolah).toLowerCase();
+        if (localStorage.getItem(idUnik) === "selesai") {
+            alert("Sistem mendeteksi Anda sudah pernah mengerjakan tes ini.");
+            return;
+        }
+
+        localStorage.setItem(idUnik, "selesai");
         dataPeserta = { nama, kelas, sekolah };
         
-        // Inisialisasi semua peran dengan warna putih default
         databasePeran.forEach(p => statusWarna[p.id] = 'warna-putih');
-
         document.getElementById("tahapIdentitas").classList.remove("active");
         document.getElementById("tahap1").classList.add("active");
         renderGrid("grid1", databasePeran, "counter1", "cekTahap1");
@@ -221,10 +234,9 @@
         const checked = Array.from(document.querySelectorAll('input[name="cekTahap1"]:checked')).map(cb => cb.value);
         if (checked.length < 10 || checked.length > 20) { alert("Pilih 10-20 pernyataan!"); return; }
         
-        // Semua yang dipilih di tahap 1 awalnya diset warna KUNING
         checked.forEach(id => statusWarna[id] = 'warna-kuning');
-
         const terpilih = databasePeran.filter(item => checked.includes(item.id));
+        
         document.getElementById("tahap1").classList.remove("active");
         document.getElementById("tahap2").classList.add("active");
         renderGrid("grid2", terpilih, "counter2", "cekTahap2");
@@ -235,10 +247,10 @@
         const checked = Array.from(document.querySelectorAll('input[name="cekTahap2"]:checked')).map(cb => cb.value);
         if (checked.length !== 7) { alert("Pilih TEPAT 7 pernyataan!"); return; }
 
-        // 7 yang lolos ditimpa menjadi warna MERAH
         checked.forEach(id => statusWarna[id] = 'warna-merah');
-
         const sisaTahap1 = databasePeran.filter(item => statusWarna[item.id] === 'warna-putih');
+        
+        document.getElementById("tahap2").classList.removeactive;
         document.getElementById("tahap2").classList.remove("active");
         document.getElementById("tahap3").classList.add("active");
         renderGrid("grid3", sisaTahap1, "counter3", "cekTahap3");
@@ -249,7 +261,6 @@
         const checked = Array.from(document.querySelectorAll('input[name="cekTahap3"]:checked')).map(cb => cb.value);
         if (checked.length !== 5) { alert("Pilih TEPAT 5 pernyataan!"); return; }
 
-        // 5 yang dipilih di akhir diset menjadi warna HITAM
         checked.forEach(id => statusWarna[id] = 'warna-hitam');
 
         document.getElementById("tahap3").classList.remove("active");
@@ -263,7 +274,6 @@
         document.getElementById("resKelas").innerText = `: ${dataPeserta.kelas}`;
         document.getElementById("resSekolah").innerText = `: ${dataPeserta.sekolah}`;
 
-        // Render List Teks
         const listMerah = document.getElementById("listKekuatan");
         const listHitam = document.getElementById("listKelemahan");
         databasePeran.forEach(item => {
@@ -271,7 +281,6 @@
             if (statusWarna[item.id] === 'warna-hitam') listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
         });
 
-        // Render Peta Visual
         renderPetaVisual();
     }
 
@@ -279,7 +288,6 @@
         const petaArea = document.getElementById("petaVisualArea");
         petaArea.innerHTML = "";
         
-        // Mengelompokkan berdasarkan cluster
         const clusters = ["H (Headman)", "N (Networking)", "T (Thinking)", "R (Reasoning)", "E (Elementary)", "Te (Technical)", "Gi (Generating Idea)", "S (Servicing)"];
         
         clusters.forEach(clusterName => {
@@ -294,10 +302,8 @@
             const circleContainer = document.createElement("div");
             circleContainer.className = "circle-container";
             
-            // Ambil peran yang sesuai dengan cluster ini
             databasePeran.filter(p => p.cluster === clusterName).forEach(p => {
                 const bulatan = document.createElement("div");
-                // Class warna akan ditambahkan sesuai statusWarna
                 bulatan.className = `bulatan ${statusWarna[p.id]}`; 
                 bulatan.innerText = p.singkatan;
                 circleContainer.appendChild(bulatan);
@@ -311,13 +317,20 @@
     function unduhPDF() {
         const btn = document.getElementById('btnDownload');
         btn.style.display = 'none';
+        
+        // Memastikan layar bergeser ke paling atas sebelum direkam
+        window.scrollTo(0, 0);
+
         html2pdf().set({
-            margin: 10,
-            filename: `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).from(document.getElementById('areaCetak')).save().then(() => btn.style.display = 'block');
+            margin:       [10, 10, 15, 10], // Margin atas, kiri, bawah, kanan
+            filename:     `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+            pagebreak:    { mode: 'avoid-all' }, // KUNCI MENCEGAH TERPOTONG
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(document.getElementById('areaCetak')).save().then(() => {
+            btn.style.display = 'block';
+        });
     }
 </script>
 
