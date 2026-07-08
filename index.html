@@ -71,8 +71,6 @@
     </style>
 </head>
 <body>
-</head>
-<body>
 
 <div id="modalPanduan" class="modal-overlay">
     <div class="modal-content">
@@ -168,10 +166,16 @@
 
         <div class="map-container">
             <h3 class="map-title">Strength Typology (ST-30)</h3>
-            <div class="map-grid" id="petaVisualArea">
-                </div>
+            <div class="map-grid" id="petaVisualArea"></div>
         </div>
 
+        <div class="keterangan-warna">
+            <div class="item-warna"><div class="ikon-warna" style="background: #ff3333; border: 2px solid #cc0000;"></div><b>Merah:</b> Sangat Sesuai (Kekuatan Utama)</div>
+            <div class="item-warna"><div class="ikon-warna" style="background: #ffff66; border: 2px solid #cccc00;"></div><b>Kuning:</b> Sesuai (Potensi Pendukung)</div>
+            <div class="item-warna"><div class="ikon-warna" style="background: #ffffff; border: 2px solid #ccc;"></div><b>Putih:</b> Netral / Biasa Saja</div>
+            <div class="item-warna"><div class="ikon-warna" style="background: #333333; border: 2px solid #000;"></div><b>Hitam:</b> Keterbatasan (Sangat Tidak Sesuai)</div>
+        </div>
+        
         <div class="result-section merah-box">
             <h4 style="color: #d93025; margin-top: 0;">KEKUATAN UTAMA</h4>
             <ul id="listKekuatan"></ul>
@@ -241,7 +245,6 @@
     
     let dataPeserta = {};
     let statusWarna = {}; 
-    let kekuatanMerah = [];
 
     function mulaiTes() {
         const nama = document.getElementById("inputNama").value.trim();
@@ -325,11 +328,15 @@
 
         const listMerah = document.getElementById("listKekuatan");
         const listHitam = document.getElementById("listKelemahan");
+        
+        listMerah.innerHTML = "";
+        listHitam.innerHTML = "";
+
         databasePeran.forEach(item => {
             if (statusWarna[item.id] === 'warna-merah') listMerah.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
             if (statusWarna[item.id] === 'warna-hitam') listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
         });
-
+        
         renderPetaVisual();
         kalkulasiRekomendasi();
     }
@@ -377,9 +384,9 @@
         };
 
         // Ambil data hanya yang berwarna merah dari statusWarna 
-        const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] === 'warna-merah');
+const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] === 'warna-merah');
         
-        kekuatanMerah.forEach(item => {
+        kekuatanMerahAktual.forEach(item => {
             if(item.cluster === "T (Thinking)" || item.cluster === "R (Reasoning)") {
                 skorJurusan["SMA IPA / MA Ilmu Alam"] += 2;
                 skorJurusan["SMK Teknik / Rekayasa / IT"] += 1;
@@ -404,22 +411,21 @@
             if(item.cluster === "Te (Technical)") {
                 skorJurusan["SMK Teknik / Rekayasa / IT"] += 2;
             }
-            // Tambahan bobot khusus untuk peran komunikasi
             if(item.singkatan === "INT" || item.singkatan === "COM") {
                 skorJurusan["SMA Bahasa & Sastra"] += 2;
             }
         });
 
-        // Mengurutkan jurusan berdasarkan skor tertinggi
         let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] - skorJurusan[a]);
 
         let rekomendasiHTML = "";
         for(let i = 0; i < 3; i++) {
             let jurusan = urutanRekomendasi[i];
-            if(skorJurusan[jurusan] > 0) { // Pastikan skor lebih dari 0
+            if(skorJurusan[jurusan] > 0) { 
                 rekomendasiHTML += `<li><b>${jurusan}</b><br><span style="color:#555; font-size:0.9em;">${deskripsiJurusan[jurusan]}</span></li>`;
             }
         }
+        
         document.getElementById("listRekomendasi").innerHTML = rekomendasiHTML;
     }
     
