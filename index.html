@@ -57,10 +57,31 @@
         .logo-container img { max-height: 70px; width: auto; object-fit: contain; }
 
         /* --- STYLING PETA VISUAL --- */
-        .map-container { background: #fff; padding: 20px; border: 2px solid #2c3e50; border-radius: 10px; margin-bottom: 30px; page-break-inside: avoid; }
-        .map-title { text-align: center; font-weight: bold; color: #2c3e50; margin-top: 0; }
-        .map-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .cluster-group { display: flex; flex-direction: column; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 180px; }
+.map-container { 
+            background: #fff; 
+            padding: 20px; 
+            border: 2px solid #2c3e50; 
+            border-radius: 10px; 
+            margin-bottom: 15px; 
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+        .map-title { text-align: center; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; }
+        
+        /* Mengubah flex menjadi grid murni agar html2pdf tidak bingung menghitung space */
+        .map-grid { 
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Membagi rata menjadi 4 kolom per baris */
+            gap: 15px; 
+        }
+        .cluster-group { 
+            display: block; /* Hindari penggunaan flex pada kontainer utama klaster */
+            background: #f8f9fa; 
+            padding: 10px; 
+            border-radius: 8px; 
+            border: 1px solid #ddd; 
+            box-sizing: border-box;
+        }
         .cluster-title { font-size: 0.8em; font-weight: bold; color: #555; margin-bottom: 10px; text-align: center; }
         .circle-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
         
@@ -186,31 +207,25 @@
         <button class="btn btn-submit" onclick="tampilkanHasil()">Lihat Hasil Akhir</button>
     </div>
 
-    <div id="hasil" class="stage">
+<div id="hasil" class="stage">
         <div class="result-header">
             <h2 style="margin: 0; color: #2c3e50;">Laporan Hasil Asesmen</h2>
         </div>
         
-<table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
-            <tr>
-                <th style="width: 120px; text-align: left;">Nama</th>
-                <td id="resNama">: -</td>
-            </tr>
-            <tr>
-                <th style="text-align: left;">Kelas</th>
-                <td id="resKelas">: -</td>
-            </tr>
-            <tr>
-                <th style="text-align: left;">Asal Sekolah</th>
-                <td id="resSekolah">: -</td>
-            </tr>
+        <!-- Tabel Profil Pas Rata Kiri -->
+        <table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+            <tr><th style="width: 120px; text-align: left;">Nama</th><td id="resNama">: -</td></tr>
+            <tr><th style="text-align: left;">Kelas</th><td id="resKelas">: -</td></tr>
+            <tr><th style="text-align: left;">Asal Sekolah</th><td id="resSekolah">: -</td></tr>
         </table>
 
+        <!-- Peta Visual -->
         <div class="map-container">
             <h3 class="map-title">Peta Potensi Minat Bakat (Berdasarkan ST-30)</h3>
             <div class="map-grid" id="petaVisualArea"></div>
         </div>
 
+        <!-- Keterangan Warna -->
         <div class="keterangan-container">
             <h4 class="keterangan-judul">Keterangan Warna:</h4>
             <div class="keterangan-warna">
@@ -221,16 +236,25 @@
             </div>
         </div>
         
+        <!-- ================= PAKSA PINDAH KE HALAMAN 2 ================= -->
+        <div class="html2pdf__page-break"></div>
+
+        <!-- Kotak Kekuatan Utama Selisihnya Banyak Memakan Tempat -->
         <div class="result-section merah-box">
             <h4 style="color: #d93025; margin-top: 0;">KEKUATAN UTAMA</h4>
             <ul id="listKekuatan"></ul>
         </div>
         
+        <!-- ================= PAKSA PINDAH KE HALAMAN 3 ================= -->
+        <div class="html2pdf__page-break"></div>
+
+        <!-- Kotak Area Keterbatasan -->
         <div class="result-section hitam-box">
             <h4 style="color: #495057; margin-top: 0;">AREA KETERBATASAN</h4>
             <ul id="listKelemahan"></ul>
         </div>
 
+        <!-- Kotak Rekomendasi Sekolah Lanjutan -->
         <div class="result-section rekomendasi-box">
             <h3 style="color: #007bff; margin-top: 0; font-size: 1.3em; text-align: center;">Rekomendasi Sekolah Lanjutan</h3>
             <p style="font-size: 0.95em; color: #333; text-align: center; margin-bottom: 15px;">Berdasarkan kekuatan dominanmu, berikut adalah rekomendasi jurusan lanjutan yang paling sesuai agar potensimu berkembang maksimal:</p>
@@ -239,7 +263,6 @@
         
         <button class="btn btn-submit btn-download" id="btnDownload" onclick="unduhPDF()">Unduh Hasil (PDF)</button>
     </div>
-</div>
 
 <script>
     function tutupModal() { 
@@ -721,12 +744,12 @@ function unduhPDF() {
         area.classList.add('mode-cetak'); // Aktifkan mode watermark sebelum dijepret PDF
         window.scrollTo(0, 0);
 
-        const opsiPDF = {
-            margin:       [10, 10, 15, 10], // Margin atas, kiri, bawah, kanan
-            filename:     `Hasil_Tes Minat Bakat_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
+const opsiPDF = {
+            margin:       [10, 10, 15, 10],
+            filename:     `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-            pagebreak:    { mode: ['css', 'legacy', 'avoid-all'] }, // Paksa baca semua mode
+            pagebreak:    { mode: ['css', 'legacy'] }, // Menggunakan mode css + legacy agar tag html2pdf__page-break aktif
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
