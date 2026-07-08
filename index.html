@@ -212,36 +212,276 @@
     }
 
     const databasePeran = [
-{ id: "1", nama: "Administrator", singkatan: "ADM", cluster: "E (Elementary)", pernyataan: "Pengelola catatan, jadwal aktivitas dan dokumen kerja yang rapi dan teratur", deskripsiHasil: "Memiliki kemampuan mengelola catatan, menyusun jadwal, dan merapikan dokumen.", potensiKarir: "Sekretaris, Notaris, Petugas Perpustakaan, Admin Keuangan, Office Manager, Administrasi Sekolah, HRD Staff, Asisten Kepala Sekolah." },
-        { id: "2", nama: "Ambassador", singkatan: "AMB", cluster: "N (Networking)", pernyataan: "Menjadi perwakilan dan juru bicara kelompok", deskripsiHasil: "Pandai membangun komunikasi dan relasi positif.", potensiKarir: "Diplomat, Brand Ambassador, Public Relations (PR), Sales Executive, Customer Service Specialist, Event Organizer, Humas, Relationship Manager." },
-        { id: "3", nama: "Analyst", singkatan: "ANA", cluster: "T (Thinking)", pernyataan: "Senang memahami dan menganalisa secara logis", deskripsiHasil: "Cenderung berpikir logis dan kritis.", potensiKarir: "Akuntan, Data Analyst, Auditor, Engineer, Peneliti, Quality Control, Konsultan Bisnis, Analis Keuangan, Programmer." },
-        { id: "4", nama: "Arranger", singkatan: "ARR", cluster: "H (Headman)", pernyataan: "Pandai mengatur koordinasi orang", deskripsiHasil: "Mampu mengoordinasikan rekan tim.", potensiKarir: "Manager, Event Organizer, Coordinator, Team Leader, Dispatcher, Event Planner, Project Coordinator, Procurement Officer." },
-        { id: "5", nama: "Caretaker", singkatan: "CAR", cluster: "S (Servicing)", pernyataan: "Senang memberi perhatian dan perawatan", deskripsiHasil: "Memiliki empati tinggi dan sabar.", potensiKarir: "Pekerja Sosial, Dokter, Perawat, Konselor." },
-        { id: "6", nama: "Commander", singkatan: "CMD", cluster: "H (Headman)", pernyataan: "Pemimpin yang tegas dan berani", deskripsiHasil: "Berani mengambil peran pemimpin.", potensiKarir: "Debt Collector, Polisi, Tentara, Manager Senior, Kepala Departemen, Sales Manager, Mediator, Pemimpin Proyek." },
-        { id: "7", nama: "Communicator", singkatan: "COM", cluster: "N (Networking)", pernyataan: "Senang menyampaikan pesan dengan jelas", deskripsiHasil: "Kemampuan berbicara yang baik.", potensiKarir: "Presenter, Jurnalis, News Anchor, Teacher, Marketing Professional, Sales, Content Creator, HR Trainer, Duta Budaya." },
-        { id: "8", nama: "Creator", singkatan: "CRE", cluster: "Gi (Generating Idea)", pernyataan: "Senang menciptakan ide atau karya baru", deskripsiHasil: "Kaya imajinasi dan orisinal.", potensiKarir: "Desainer Grafis, Product Designer, Entrepreneur, Arsitek, Content Creator, Marketing Creative, Fashion Designer, Inventor, Art Director." },
-        { id: "9", nama: "Designer", singkatan: "DES", cluster: "Gi (Generating Idea)", pernyataan: "Mampu menggambarkan karya dengan rinci", deskripsiHasil: "Ketertarikan pada estetika.", potensiKarir: "Graphic Designer, Interior Designer, Fashion Designer, Arsitek, UI/UX Designer, Product Designer, Illustrator, Creative Director." },
-        { id: "10", nama: "Distributor", singkatan: "DIS", cluster: "Te (Technical)", pernyataan: "Pengelola penyaluran barang atau informasi", deskripsiHasil: "Cekatan dalam tugas lapangan.", potensiKarir: "Kurir, Agen Penjualan, Logistik Officer, Sales Distributor, Sopir, Field Officer, Agen Perjalanan, Supply Chain Manager." },
-        { id: "11", nama: "Educator", singkatan: "EDU", cluster: "N (Networking)", pernyataan: "Senang mendidik dan membantu orang lain", deskripsiHasil: "Sabar dalam mengajar.", potensiKarir: "Guru, Tutor, Trainer, Coach, Mentor, Instruktur, Fasilitator, Konselor, Dosen." },
-        { id: "12", nama: "Evaluator", singkatan: "EVA", cluster: "R (Reasoning)", pernyataan: "Mampu melakukan pengamatan mendalam", deskripsiHasil: "Teliti dan objektif.", potensiKarir: "Auditor, Inspector, Quality Assurance, Kritikus, Reviewer, Penyidik, Consultant, Editor, Standarizer." },
-        { id: "13", nama: "Explorer", singkatan: "EXP", cluster: "R (Reasoning)", pernyataan: "Senang menyelidiki secara sistematis", deskripsiHasil: "Rasa ingin tahu tinggi.", potensiKarir: "Peneliti, Jurnalis Investigasi, Surveyor, Detective, Scientist, Geolog, Etnografer, Sejarawan, Riset & Development." },
-        { id: "14", nama: "Interpreter", singkatan: "INT", cluster: "E (Elementary)", pernyataan: "Mampu menerjemahkan pernyataan sulit", deskripsiHasil: "Tanggap dalam instruksi.", potensiKarir: "Penerjemah, Diplomat, Konsultan Komunikasi, Mediator, Guide Wisata, HR Professional, Communications Officer." },
-        { id: "15", nama: "Journalist", singkatan: "JOU", cluster: "E (Elementary)", pernyataan: "Senang menyebarluaskan informasi", deskripsiHasil: "Gemar menulis.", potensiKarir: "Penulis Buku, Wartawan, Editor, Reporter." },
-        { id: "16", nama: "Marketer", singkatan: "MAR", cluster: "Gi (Generating Idea)", pernyataan: "Merumuskan strategi promosi", deskripsiHasil: "Persuasif dan strategis.", potensiKarir: "Marketing Manager, Brand Manager, Business Development, Sales Director, Entrepreneur, Social Media Manager, Advertising Executive, Copywriter." },
-        { id: "17", nama: "Mediator", singkatan: "MED", cluster: "H (Headman)", pernyataan: "Mampu menjadi penengah konflik", deskripsiHasil: "Netral dan bijaksana.", potensiKarir: "Mediator Hukum, Juri, Negosiator, HR Manager, Peacemaker, Konselor, Facilitator, Duta Perdamaian." },
-        { id: "18", nama: "Motivator", singkatan: "MOT", cluster: "N (Networking)", pernyataan: "Membangkitkan semangat orang lain", deskripsiHasil: "Membawa energi positif.", potensiKarir: "Motivator, Leader, Guru, Pelatih, HR Trainer." },
-        { id: "19", nama: "Operator", singkatan: "OPE", cluster: "Te (Technical)", pernyataan: "Senang mengoperasikan alat kerja", deskripsiHasil: "Praktis dan terampil.", potensiKarir: "Operator Mesin, Teknisi Perawatan, Operator Kendaraan, IT Support, Administrator Sistem, Pilot, Operator Produksi, Teknisi Instalasi." },
-        { id: "20", nama: "Producer", singkatan: "PRO", cluster: "Te (Technical)", pernyataan: "Pelaksana produksi yang teratur", deskripsiHasil: "Berorientasi pada hasil.", potensiKarir: "Teknisi Produksi, Project Manager, Entrepreneur, Manufaktur Specialist, Production Manager, Skilled Worker, Craftsperson." },
-        { id: "21", nama: "Quality Controller", singkatan: "QCA", cluster: "Te (Technical)", pernyataan: "Pemeriksa hasil kerja", deskripsiHasil: "Standar tinggi dan jeli.", potensiKarir: "Quality Assurance Officer, Inspector, Teknisi QC, Auditor, Finishing Specialist, Process Improvement Officer, Standards Auditor." },
-        { id: "22", nama: "Restorer", singkatan: "RES", cluster: "R (Reasoning)", pernyataan: "Senang memperbaiki sesuatu", deskripsiHasil: "Kemampuan analitis teknis.", potensiKarir: "Teknisi Perbaikan, Dokter, Psikolog, Mechanic, Ahli Restorasi, IT Support, Maintenance Engineer, Psikolog." },
-        { id: "23", nama: "Safekeeper", singkatan: "SAF", cluster: "Te (Technical)", pernyataan: "Pelindung keselamatan", deskripsiHasil: "Berhati-hati dan taat aturan.", potensiKarir: "Safety Officer, Inspektur Keselamatan, Petugas Pajak." },
-        { id: "24", nama: "Seller", singkatan: "SEL", cluster: "H (Headman)", pernyataan: "Senang mempengaruhi orang membeli", deskripsiHasil: "Percaya diri dan daya tawar tinggi.", potensiKarir: "Sales Executive, Sales Manager, Business Development, Entrepreneur, Account Manager, Customer Acquisition Specialist." },
-        { id: "25", nama: "Server", singkatan: "SER", cluster: "S (Servicing)", pernyataan: "Senang melayani dengan tulus", deskripsiHasil: "Mengutamakan pelayanan.", potensiKarir: "Customer Service, Perhotelan, Account Sales, Layanan Publik." },
-        { id: "26", nama: "Selector", singkatan: "SLC", cluster: "H (Headman)", pernyataan: "Pandai memilih orang yang tepat", deskripsiHasil: "Jeli melihat potensi orang.", potensiKarir: "HRD Recruiter, Talent Scout, Scout Coach, Casting Director, Executive Coach, Headhunter, Talent Manager." },
-        { id: "27", nama: "Strategist", singkatan: "STR", cluster: "Gi (Generating Idea)", pernyataan: "Mampu menyusun rencana", deskripsiHasil: "Visioner dalam taktik.", potensiKarir: "Strategic Planner, Business Strategist, Manager Perencanaan, Leader, Konsultan Strategis, Program Manager, Policy Maker." },
-        { id: "28", nama: "Synthesizer", singkatan: "SYN", cluster: "Gi (Generating Idea)", pernyataan: "Menggabungkan informasi menjadi baru", deskripsiHasil: "Melihat keterkaitan solusi.", potensiKarir: "Researcher, Consultant, Strategist, Entrepreneur, Scientist, Analyst, Knowledge Manager, Systems Thinker." },
-        { id: "29", nama: "Treasurer", singkatan: "TRE", cluster: "T (Thinking)", pernyataan: "Mengatur keuangan dengan cermat", deskripsiHasil: "Teliti dan terstruktur.", potensiKarir: "Finance/Akunting, Auditor Keuangan, Manajer Keuangan." },
-        { id: "30", nama: "Visionary", singkatan: "VIS", cluster: "Gi (Generating Idea)", pernyataan: "Berpikir jauh ke masa depan", deskripsiHasil: "Idealis dan fokus jangka panjang.", potensiKarir: "Leader, Entrepreneur, Founder, Social Entrepreneur, Innovation Manager, Futurist, Visionary CEO, Change Agent." }
+{ 
+            id: "1", 
+            nama: "Administrator", 
+            singkatan: "ADM", 
+            cluster: "E (Elementary)", 
+            pernyataan: "Pengelola catatan, jadwal aktivitas dan dokumen kerja yang rapi dan teratur", 
+            deskripsiHasil: "Pengelola yang sangat rapi dan tertata baik dalam mengurus berbagai urusan bisnis, organisasi, maupun lembaga.", 
+            potensiKarir: "Sekretaris, Notaris, Petugas Perpustakaan, Admin Keuangan, Office Manager, Administrasi Sekolah, HRD Staff, Asisten Kepala Sekolah." 
+        },
+        { 
+            id: "2", 
+            nama: "Ambassador", 
+            singkatan: "AMB", 
+            cluster: "N (Networking)", 
+            pernyataan: "Menjadi perwakilan dan juru bicara kelompok dalam berhubungan dengan pihak lain", 
+            deskripsiHasil: "Seseorang yang memiliki kapasitas untuk menjadi perwakilan atau utusan dari suatu organisasi maupun institusi, baik dalam kapasitas resmi maupun tidak resmi.", 
+            potensiKarir: "Diplomat, Brand Ambassador, Public Relations (PR), Sales Executive, Customer Service Specialist, Event Organizer, Humas, Relationship Manager." 
+        },
+        { 
+            id: "3", 
+            nama: "Analyst", 
+            singkatan: "ANA", 
+            cluster: "T (Thinking)", 
+            pernyataan: "Senang memahami dan menganalisa segala sesuatu secara logis terperinci", 
+            deskripsiHasil: "Seseorang yang sangat menyukai hal-hal mendetail dan memiliki kebiasaan untuk selalu menganalisis berbagai macam peristiwa yang terjadi di sekitarnya.", 
+            potensiKarir: "Akuntan, Data Analyst, Auditor, Engineer, Peneliti, Quality Control, Konsultan Bisnis, Analis Keuangan, Programmer." 
+        },
+        { 
+            id: "4", 
+            nama: "Arranger", 
+            singkatan: "ARR", 
+            cluster: "H (Headman)", 
+            pernyataan: "Pandai mengatur kordinasi orang atau sumber daya agar dapat bekerja sama dengan baik", 
+            deskripsiHasil: "Individu yang mampu mengorganisir berbagai hal atau mengatur segala sumber daya yang dimiliki secara mudah dan terstruktur.", 
+            potensiKarir: "Manager, Event Organizer, Coordinator, Team Leader, Dispatcher, Event Planner, Project Coordinator, Procurement Officer." 
+        },
+        { 
+            id: "5", 
+            nama: "Caretaker", 
+            singkatan: "CAR", 
+            cluster: "S (Servicing)", 
+            pernyataan: "Senang memberi perhatian, perawatan dan dukungan agar orang lain tetap dalam keadaan baik", 
+            deskripsiHasil: "Seseorang yang secara alami menyukai aktivitas yang memberikan perhatian, perawatan, serta dukungan moral kepada orang lain.", 
+            potensiKarir: "Pekerja Sosial, Dokter, Perawat, Konselor." 
+        },
+        { 
+            id: "6", 
+            nama: "Commander", 
+            singkatan: "CMD", 
+            cluster: "H (Headman)", 
+            pernyataan: "Pemimpin yang tegas, berani menghadapi masalah secara langsung dan mengambil keputusan", 
+            deskripsiHasil: "Karakter yang gemar memberikan perintah, memiliki ketegasan (kadang memaksa), serta mempunyai keberanian besar untuk menghadapi masalah secara langsung.", 
+            potensiKarir: "Debt Collector, Polisi, Tentara, Manager Senior, Kepala Departemen, Sales Manager, Mediator dalam konflik, Pemimpin Proyek." 
+        },
+        { 
+            id: "7", 
+            nama: "Communicator", 
+            singkatan: "COM", 
+            cluster: "N (Networking)", 
+            pernyataan: "Senang menyampaikan pesan dengan cara yang jelas dan mudah dipahami orang lain", 
+            deskripsiHasil: "Seseorang yang mahir dalam menyampaikan komunikasi, ide, serta perasaan kepada orang lain dengan cara yang sederhana sehingga sangat mudah dimengerti.", 
+            potensiKarir: "Presenter, Jurnalis, News Anchor, Teacher, Marketing Professional, Sales, Content Creator, HR Trainer, Duta Budaya." 
+        },
+        { 
+            id: "8", 
+            nama: "Creator", 
+            singkatan: "CRE", 
+            cluster: "Gi (Generating Idea)", 
+            pernyataan: "Senang menciptakan ide atau karya baru yang bermanfaat bagi orang lain", 
+            deskripsiHasil: "Individu yang senang dan memiliki kemampuan murni untuk menciptakan sesuatu yang baru, seperti yang biasa ditemukan pada sosok penulis atau ilmuwan.", 
+            potensiKarir: "Desainer Grafis, Product Designer, Entrepreneur, Arsitek, Content Creator, Marketing Creative, Fashion Designer, Inventor, Art Director." 
+        },
+        { 
+            id: "9", 
+            nama: "Designer", 
+            singkatan: "DES", 
+            cluster: "Gi (Generating Idea)", 
+            pernyataan: "Mampu menggambarkan karya yang akan dibuat dalam rancangan yang rinci dan akurat", 
+            deskripsiHasil: "Seseorang yang dianugerahi kemampuan visual yang kuat, mampu membayangkan bagaimana sesuatu akan dibuat, dan terampil menggambar rancangan tersebut.", 
+            potensiKarir: "Graphic Designer, Interior Designer, Fashion Designer, Arsitek, UI/UX Designer, Product Designer, Illustrator, Creative Director." 
+        },
+        { 
+            id: "10", 
+            nama: "Distributor", 
+            singkatan: "DIS", 
+            cluster: "Te (Technical)", 
+            pernyataan: "Pengelola proses penyaluran barang atau informasi kepada pihak yang membutuhkan", 
+            deskripsiHasil: "Individu yang fokus pada aktivitas memberikan atau mengirimkan sesuatu kepada orang-orang tertentu dalam jumlah atau takaran yang sudah ditentukan.", 
+            potensiKarir: "Kurir, Agen Penjualan, Logistik Officer, Sales Distributor, Sopir, Field Officer, Agen Perjalanan, Supply Chain Manager." 
+        },
+        { 
+            id: "11", 
+            nama: "Educator", 
+            singkatan: "EDU", 
+            cluster: "N (Networking)", 
+            pernyataan: "Senang mendidik dan membantu orang lain mengembangkan diri", 
+            deskripsiHasil: "Seseorang yang berperan aktif dalam mendidik, serta memiliki kemampuan dalam merencanakan sekaligus mengarahkan proses pendidikan.", 
+            potensiKarir: "Guru, Tutor, Trainer, Coach, Mentor, Instruktur, Fasilitator, Konselor, Dosen." 
+        },
+        { 
+            id: "12", 
+            nama: "Evaluator", 
+            singkatan: "EVA", 
+            cluster: "R (Reasoning)", 
+            pernyataan: "Mampu melakukan pengamatan dan pemeriksaan mendalam untuk membuat penilaian atas sesuatu", 
+            deskripsiHasil: "Seseorang yang andal dalam melakukan studi serta analisis yang mendalam sebelum akhirnya menarik kesimpulan yang valid mengenai suatu hal.", 
+            potensiKarir: "Auditor, Inspector, Quality Assurance, Kritikus, Reviewer, Penyidik, Consultant, Editor, Standarizer." 
+        },
+        { 
+            id: "13", 
+            nama: "Explorer", 
+            singkatan: "EXP", 
+            cluster: "R (Reasoning)", 
+            pernyataan: "Senang menyelidiki sesuatu secara sistematis sebagai upaya menemukan dan mengungkap fakta", 
+            deskripsiHasil: "Seseorang yang suka menyelidiki sesuatu hal secara sistematis sebagai upaya untuk menemukan motif tersembunyi atau mengungkapkan suatu kebenaran.", 
+            potensiKarir: "Peneliti, Jumalis Investigasi, Surveyor, Detective, Scientist, Geolog, Etnografer, Sejarawan, Riset & Development." 
+        },
+        { 
+            id: "14", 
+            nama: "Interpreter", 
+            singkatan: "INT", 
+            cluster: "E (Elementary)", 
+            pernyataan: "Mampu menjelaskan dan menerjemahkan suatu pernyataan jadi lebih mudah dipahami", 
+            deskripsiHasil: "Seseorang yang mampu menginterpretasikan atau menafsirkan makna dari sesuatu hal, termasuk melakukan penerjemahan ke dalam bahasa lain.", 
+            potensiKarir: "Penerjemah, Diplomat, Konsultan Komunikasi, Mediator, Guide Wisata, HR Professional, Communications Officer." 
+        },
+        { 
+            id: "15", 
+            nama: "Journalist", 
+            singkatan: "JOU", 
+            cluster: "E (Elementary)", 
+            pernyataan: "Senang mencari, mencatat dan menyebarluaskan informasi tentang kejadian sehari-hari", 
+            deskripsiHasil: "Seseorang yang pandai membuat jurnal, buku harian, catatan kejadian sehari-hari, serta menulis laporan dan berita untuk disiarkan kepada publik.", 
+            potensiKarir: "Penulis Buku, Wartawan, Editor, Reporter." 
+        },
+        { 
+            id: "16", 
+            nama: "Marketer", 
+            singkatan: "MAR", 
+            cluster: "Gi (Generating Idea)", 
+            pernyataan: "Mampu merumuskan strategi promosi agar lebih banyak orang yang membeli produk atau jasanya", 
+            deskripsiHasil: "Seseorang yang andal dalam merumuskan strategi promosi yang jitu guna mendorong orang-orang agar membeli lebih banyak produk atau jasa.", 
+            potensiKarir: "Marketing Manager, Brand Manager, Business Development, Sales Director, Entrepreneur, Social Media Manager, Advertising Executive, Copywriter." 
+        },
+        { 
+            id: "17", 
+            nama: "Mediator", 
+            singkatan: "MED", 
+            cluster: "H (Headman)", 
+            pernyataan: "Mampu menjadi penengah yang membantu menyelesaikan konflik antar dua pihak yang berselisih", 
+            deskripsiHasil: "Seseorang yang mampu menempatkan diri sebagai penengah yang netral, serta andal dalam mengatasi dan menyelesaikan sebuah konflik.", 
+            potensiKarir: "Mediator Hukum, Juri, Negosiator, HR Manager, Peacemaker, Konselor, Facilitator, Duta Perdamaian." 
+        },
+        { 
+            id: "18", 
+            nama: "Motivator", 
+            singkatan: "MOT", 
+            cluster: "N (Networking)", 
+            pernyataan: "Senang membangkitkan semangat orang lain untuk terus berusaha mencapai tujuan", 
+            deskripsiHasil: "Tipologi yang hebat dalam membakar semangat orang lain, membuat mereka tertarik, dan membangun komitmen agar orang tersebut melakukan sesuatu dengan kemampuan terbaiknya.", 
+            potensiKarir: "Motivator, Leader, Guru, Pelatih, HR Trainer." 
+        },
+        { 
+            id: "19", 
+            nama: "Operator", 
+            singkatan: "OPE", 
+            cluster: "Te (Technical)", 
+            pernyataan: "Senang mengoperasikan alat kerja dan memastikannya berfungsi dengan baik", 
+            deskripsiHasil: "Seseorang yang terampil dalam mengoperasikan, mengendalikan, sekaligus menjaga mesin-mesin, instrumen, ataupun peralatan teknis lainnya.", 
+            potensiKarir: "Operator Mesin, Teknisi Perawatan, Operator Kendaraan, IT Support, Administrator Sistem, Pilot, Operator Produksi, Teknisi Instalasi." 
+        },
+        { 
+            id: "20", 
+            nama: "Producer", 
+            singkatan: "PRO", 
+            cluster: "Te (Technical)", 
+            pernyataan: "Pelaksana produksi barang atau karya melalui proses kerja yang teratur dan sistematis", 
+            deskripsiHasil: "Individu yang produktif dalam menghasilkan suatu produk nyata, terutama produk-produk yang lahir dari proses industri dan manufaktur.", 
+            potensiKarir: "Teknisi Produksi, Project Manager, Entrepreneur, Manufaktur Specialist, Production Manager, Skilled Worker, Craftsperson." 
+        },
+        { 
+            id: "21", 
+            nama: "Quality Controller", 
+            singkatan: "QCA", 
+            cluster: "Te (Technical)", 
+            pernyataan: "Pemeriksa hasil kerja untuk memastikan kualitasnya sesuai standar yang ditetapkan", 
+            deskripsiHasil: "Seseorang yang bertugas memastikan kualitas suatu hal agar tetap memadai dan baik, terutama pada produk-produk yang sedang dibuat.", 
+            potensiKarir: "Quality Assurance Officer, Inspector, Teknisi QC, Auditor, Finishing Specialist, Process Improvement Officer, Standards Auditor." 
+        },
+        { 
+            id: "22", 
+            nama: "Restorer", 
+            singkatan: "RES", 
+            cluster: "R (Reasoning)", 
+            pernyataan: "Senang memperbaiki sesuatu kembali seperti keadaan semula atau menjadi lebih baik", 
+            deskripsiHasil: "Individu yang memiliki dorongan kuat untuk memperbaiki atau mengembalikan sesuatu menjadi seperti kondisi semula yang normal atau bahkan menjadikannya lebih baik.", 
+            potensiKarir: "Teknisi Perbaikan, Dokter, Psikolog, Mechanic, Ahli Restorasi, IT Support, Maintenance Engineer, Psikolog." 
+        },
+        { 
+            id: "23", 
+            nama: "Safekeeper", 
+            singkatan: "SAF", 
+            cluster: "Te (Technical)", 
+            pernyataan: "Pelindung yang menjaga keselamatan orang dan lingkungan", 
+            deskripsiHasil: "Seseorang yang mendedikasikan dirinya untuk melindungi keselamatan atau keamanan sesuatu/seseorang dari ancaman bahaya, kerusakan, kehilangan, dan pencurian.", 
+            potensiKarir: "Safety Officer, Inspektur Keselamatan, Petugas Pajak." 
+        },
+        { 
+            id: "24", 
+            nama: "Seller", 
+            singkatan: "SEL", 
+            cluster: "H (Headman)", 
+            pernyataan: "Senang mempengaruhi orang lain untuk membeli barang atau jasa yang ditawarkannya", 
+            deskripsiHasil: "Seseorang yang sangat hebat, meyakinkan, dan punya kemampuan tinggi dalam mempengaruhi orang lain agar mau membeli barang atau jasa yang ia tawarkan.", 
+            potensiKarir: "Sales Executive, Sales Manager, Business Development, Entrepreneur, Account Manager, Customer Acquisition Specialist." 
+        },
+        { 
+            id: "25", 
+            nama: "Server", 
+            singkatan: "SER", 
+            cluster: "S (Servicing)", 
+            pernyataan: "Senang melayani dan membantu orang lain dengan tulus", 
+            deskripsiHasil: "Karakter yang tulus, senang melayani, dan selalu memiliki kecenderungan untuk mendahului kepentingan orang lain.", 
+            potensiKarir: "Customer Service, Perhotelan, Account Sales, Layanan Publik." 
+        },
+        { 
+            id: "26", 
+            nama: "Selector", 
+            singkatan: "SLC", 
+            cluster: "H (Headman)", 
+            pernyataan: "Pandai memilih orang yang tepat untuk menjalankan suatu tugas atau peran tertentu", 
+            deskripsiHasil: "Individu yang pandai dan jeli dalam memilih serta menempatkan seseorang pada suatu posisi atau tugas tertentu yang dinilai tepat.", 
+            potensiKarir: "HRD Recruiter, Talent Scout, Scout Coach, Casting Director, Executive Coach, Headhunter, Talent Manager." 
+        },
+        { 
+            id: "27", 
+            nama: "Strategist", 
+            singkatan: "STR", 
+            cluster: "Gi (Generating Idea)", 
+            pernyataan: "Mampu menyusun rencana dan langkah-langkah untuk mencapai tujuan", 
+            deskripsiHasil: "Karakter yang memiliki kemampuan berpikir strategis dan sangat piawai dalam melakukan perencanaan untuk jangka panjang.", 
+            potensiKarir: "Strategic Planner, Business Strategist, Manager Perencanaan, Leader, Konsultan Strategis, Program Manager, Policy Maker." 
+        },
+        { 
+            id: "28", 
+            nama: "Synthesizer", 
+            singkatan: "SYN", 
+            cluster: "Gi (Generating Idea)", 
+            pernyataan: "Mampu menggabungkan berbagai informasi, ide, atau sumber daya menjadi sesuatu yang baru dan bernilai", 
+            deskripsiHasil: "Seseorang yang gemar mengombinasikan berbagai sudut pandang, ide, pemikiran, atau objek yang berbeda untuk dijadikan sebuah hal baru.", 
+            potensiKarir: "Researcher, Consultant, Strategist, Entrepreneur, Scientist, Analyst, Knowledge Manager, Systems Thinker." 
+        },
+        { 
+            id: "29", 
+            nama: "Treasurer", 
+            singkatan: "TRE", 
+            cluster: "T (Thinking)", 
+            pernyataan: "Pandai mengatur dan mencatat urusan keuangan secara tertib, cermat dan teliti", 
+            deskripsiHasil: "Individu yang memiliki kemampuan dan kepandian dalam menangani tugas-tugas pengelolaan keuangan, melakukan pembukuan, serta mengurus akuntansi.", 
+            potensiKarir: "Finance/Akunting, Auditor Keuangan, Manajer Keuangan." 
+        },
+        { 
+            id: "30", 
+            nama: "Visionary", 
+            singkatan: "VIS", 
+            cluster: "Gi (Generating Idea)", 
+            pernyataan: "Senang berpikir jauh membayangkan gambaran cita-cita di masa depan", 
+            deskripsiHasil: "Pemikir masa depan yang gemar melihat jauh ke depan melampaui batasan atau cakrawala saat ini.", 
+            potensiKarir: "Leader, Entrepreneur, Founder, Social Entrepreneur, Innovation Manager, Futurist, Visionary CEO, Change Agent." 
+        }
     ];
 
     const deskripsiJurusan = {
