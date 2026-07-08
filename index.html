@@ -75,6 +75,28 @@
         .keterangan-warna { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
         .item-warna { display: flex; align-items: center; gap: 8px; font-size: 0.9em; color: #333; }
         .ikon-warna { width: 25px; height: 25px; border-radius: 50%; }
+
+        /* --- STYLING KHUSUS UNTUK PDF (WATERMARK LOGO) --- */
+        .mode-cetak {
+            position: relative;
+        }
+        .mode-cetak .logo-container {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            margin-bottom: 0;
+            gap: 15px;
+            justify-content: flex-end;
+            opacity: 0.25; /* Membuatnya transparan seperti watermark */
+            z-index: 0;
+        }
+        .mode-cetak .logo-container img {
+            max-height: 40px; /* Ukuran logo lebih kecil */
+        }
+        .mode-cetak h2, .mode-cetak p, .mode-cetak .item-card {
+            position: relative;
+            z-index: 1; /* Memastikan teks tetap di atas watermark */
+        }
     </style>
 </head>
 <body>
@@ -504,13 +526,6 @@
         const sekolah = document.getElementById("inputSekolah").value.trim();
         if (!nama || !kelas || !sekolah) { alert("Lengkapi data!"); return; }
         
-        const idUnik = (nama + "_" + kelas + "_" + sekolah).toLowerCase();
-        if (localStorage.getItem(idUnik) === "selesai") {
-            alert("Identitas yang Anda gunakan sudah pernah mengerjakan tes ini.");
-            return;
-        }
-
-        localStorage.setItem(idUnik, "selesai");
         dataPeserta = { nama, kelas, sekolah };
         
         databasePeran.forEach(p => statusWarna[p.id] = 'warna-putih');
@@ -685,20 +700,43 @@ let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] -
         document.getElementById("listRekomendasi").innerHTML = rekomendasiHTML;
     }
     
-    function unduhPDF() {
+function unduhPDF() {
         const btn = document.getElementById('btnDownload');
+        const area = document.getElementById('areaCetak');
+        
         btn.style.display = 'none';
+        area.classList.add('mode-cetak'); // Aktifkan mode watermark sebelum dijepret PDF
         window.scrollTo(0, 0);
 
-        html2pdf().set({
+        const opsiPDF = {
             margin:       [10, 10, 15, 10], // Margin atas, kiri, bawah, kanan
             filename:     `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-            pagebreak:    { mode: 'avoid-all' }, // KUNCI MENCEGAH TERPOTONG
+            pagebreak:    { mode: 'avoid-all' },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).from(document.getElementById('areaCetak')).save().then(() => {
+        };
+
+        // Proses generate PDF
+        html2pdf().set(opsiPDF).from(area).toPdf().get('pdf').then(function (pdf) {
+            // Script ini akan menambahkan tulisan / footer di setiap halaman PDF
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(9);
+                pdf.setTextColor(150, 150, 150); // Warna teks footer (abu-abu)
+                
+                const teksFooter = "report ST-30 | BBK 8 Oro-Oro Ombo 1 UNAIR";
+                
+                // Posisikan di tengah bawah halaman
+                const x = pdf.internal.pageSize.getWidth() / 2;
+                const y = pdf.internal.pageSize.getHeight() - 8; 
+                
+                pdf.text(teksFooter, x, y, { align: 'center' });
+            }
+        }).save().then(() => {
             btn.style.display = 'block';
+            area.classList.remove('mode-cetak'); // Kembalikan web ke tampilan normal setelah download
         });
     }
 </script>
