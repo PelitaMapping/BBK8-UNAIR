@@ -79,23 +79,20 @@
         /* --- STYLING KHUSUS UNTUK PDF (WATERMARK LOGO) --- */
         .mode-cetak {
             position: relative;
+            padding-top: 50px !important;
         }
         .mode-cetak .logo-container {
             position: absolute;
-            top: 25px;
-            right: 30px;
+            top: 10px; 
+            right: 15px; 
             margin-bottom: 0;
-            gap: 15px;
+            gap: 5px; /* Jarak ANTAR logo, 5px sangat mepet. Jika kurang mepet jadikan 2px atau 0 */
             justify-content: flex-end;
-            opacity: 0.25; /* Membuatnya transparan seperti watermark */
-            z-index: 0;
+            opacity: 1 !important; /
+            z-index: 10;
         }
         .mode-cetak .logo-container img {
-            max-height: 40px; /* Ukuran logo lebih kecil */
-        }
-        .mode-cetak h2, .mode-cetak p, .mode-cetak .item-card {
-            position: relative;
-            z-index: 1; /* Memastikan teks tetap di atas watermark */
+            max-height: 45px; 
         }
     </style>
 </head>
@@ -726,7 +723,7 @@ function unduhPDF() {
                 pdf.setFontSize(9);
                 pdf.setTextColor(150, 150, 150); // Warna teks footer (abu-abu)
                 
-                const teksFooter = "report ST-30 | BBK 8 Oro-Oro Ombo 1 UNAIR";
+                const teksFooter = "Report ST-30 | BBK 8 Oro-Oro Ombo 1 UNAIR";
                 
                 // Posisikan di tengah bawah halaman
                 const x = pdf.internal.pageSize.getWidth() / 2;
