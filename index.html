@@ -60,12 +60,12 @@
         
         /* Bulatan Singkatan */
         .bulatan { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.8em; border: 2px solid #ccc; background-color: white; color: #333; box-shadow: 1px 2px 4px rgba(0,0,0,0.1); }
-        
-        /* Warna Dinamis */
         .warna-merah { background-color: #ff3333; color: white; border-color: #cc0000; }
         .warna-kuning { background-color: #ffff66; color: black; border-color: #cccc00; }
         .warna-hitam { background-color: #333333; color: white; border-color: #000000; }
         .warna-putih { background-color: #ffffff; color: #777; border-color: #ccc; }
+
+        .rek-list li { margin-bottom: 10px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -123,7 +123,7 @@
             <input type="text" id="inputKelas" placeholder="Masukkan kelas Anda" required>
         </div>
         <div class="form-group">
-            <label for="inputSekolah">Sekolah / Instansi</label>
+            <label for="inputSekolah">Asal Sekolah</label>
             <input type="text" id="inputSekolah" placeholder="Masukkan nama sekolah Anda" required>
         </div>
         
@@ -131,22 +131,22 @@
     </div>
 
     <div id="tahap1" class="stage">
-        <div class="instruction-box"><b>Instruksi:</b> Pilih 10-20 pernyataan yang paling sesuai dengan dirimu.</div>
+        <div class="instruction-box"><b>Instruksi:</b> Pilih 10-20 pernyataan YANG PALING SESUAI dengan dirimu.</div>
         <div class="counter-text" id="counter1">Terpilih: 0 (Minimal 10, Maksimal 20)</div>
         <div class="item-grid" id="grid1"></div>
         <button class="btn btn-submit" onclick="lanjutTahap2()">Lanjut ke Tahap 2</button>
     </div>
 
     <div id="tahap2" class="stage">
-        <div class="instruction-box"><b>Tahap 2:</b> Pilih tepat 7 pernyataan yang merupakan Kekuatan Utama Anda.</div>
-        <div class="counter-text" id="counter2">Terpilih: 0 (Harus pas 7)</div>
+        <div class="instruction-box"><b>Tahap 2:</b> Pilih TEPAT 7 pernyataan yang merupakan Kekuatan Utama Anda.</div>
+        <div class="counter-text" id="counter2">Terpilih: 0 (Tidak Boleh Kurang maupun Lebih dari 7 )</div>
         <div class="item-grid" id="grid2"></div>
         <button class="btn btn-submit" onclick="lanjutTahap3()">Lanjut ke Tahap 3</button>
     </div>
 
     <div id="tahap3" class="stage">
-        <div class="instruction-box"><b>Tahap 3:</b> Pilih tepat 5 yang Paling Tidak Sesuai dengan Anda.</div>
-        <div class="counter-text" id="counter3">Terpilih: 0 (Harus pas 5)</div>
+        <div class="instruction-box"><b>Tahap 3:</b> Pilih TEPAT 5 yang PALING TIDAK SESUAI dengan Anda.</div>
+        <div class="counter-text" id="counter3">Terpilih: 0 (Tidak Boleh Kurang maupun Lebih dari 5)</div>
         <div class="item-grid" id="grid3"></div>
         <button class="btn btn-submit" onclick="tampilkanHasil()">Lihat Hasil Akhir</button>
     </div>
@@ -159,22 +159,28 @@
         <table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
             <tr><th style="width: 100px;">Nama</th><td id="resNama">: -</td></tr>
             <tr><th>Kelas</th><td id="resKelas">: -</td></tr>
-            <tr><th>Sekolah</th><td id="resSekolah">: -</td></tr>
+            <tr><th>Asal Sekolah</th><td id="resSekolah">: -</td></tr>
         </table>
 
         <div class="map-container">
-            <h3 class="map-title">Strength Typology Map (ST-30)</h3>
+            <h3 class="map-title">Strength Typology (ST-30)</h3>
             <div class="map-grid" id="petaVisualArea">
                 </div>
         </div>
 
+        <div class="result-section rekomendasi-box">
+            <h4 style="color: #1565c0; margin-top: 0; font-size: 1.2em;">🎓 Rekomendasi Sekolah Lanjutan</h4>
+            <p style="font-size: 0.9em; color: #333; margin-top: -10px;">Berdasarkan kekuatan dominanmu, berikut adalah arah pendidikan yang paling sesuai agar potensimu berkembang maksimal:</p>
+            <ul class="rek-list" id="listRekomendasi"></ul>
+        </div>
+        
         <div class="result-section merah-box">
-            <h4 style="color: #d93025; margin-top: 0;">7 KEKUATAN UTAMA (Merah)</h4>
+            <h4 style="color: #d93025; margin-top: 0;">KEKUATAN UTAMA</h4>
             <ul id="listKekuatan"></ul>
         </div>
         
         <div class="result-section hitam-box">
-            <h4 style="color: #495057; margin-top: 0;">5 AREA KETERBATASAN (Hitam)</h4>
+            <h4 style="color: #495057; margin-top: 0;">AREA KETERBATASAN</h4>
             <ul id="listKelemahan"></ul>
         </div>
         
@@ -189,24 +195,24 @@
         { id: "1", nama: "Administrator", singkatan: "ADM", cluster: "E (Elementary)", deskripsi: "Pengelola catatan, jadwal aktivitas dan dokumen kerja yang rapi dan teratur" },
         { id: "2", nama: "Ambassador", singkatan: "AMB", cluster: "N (Networking)", deskripsi: "Menjadi perwakilan dan juru bicara kelompok dalam berhubungan dengan pihak lain" },
         { id: "3", nama: "Analyst", singkatan: "ANA", cluster: "T (Thinking)", deskripsi: "Senang memahami dan menganalisa segala sesuatu secara logis terperinci" },
-        { id: "4", nama: "Arranger", singkatan: "ARR", cluster: "N (Networking)", deskripsi: "Pandai mengatur kordinasi orang atau sumber daya agar dapat bekerja sama dengan baik" },
+        { id: "4", nama: "Arranger", singkatan: "ARR", cluster: "H (Headman)", deskripsi: "Pandai mengatur kordinasi orang atau sumber daya agar dapat bekerja sama dengan baik" },
         { id: "5", nama: "Caretaker", singkatan: "CAR", cluster: "S (Servicing)", deskripsi: "Senang memberi perhatian, perawatan dan dukungan agar orang lain tetap dalam keadaan baik" },
         { id: "6", nama: "Commander", singkatan: "CMD", cluster: "H (Headman)", deskripsi: "Pemimpin yang tegas, berani menghadapi masalah secara langsung dan mengambil keputusan" },
         { id: "7", nama: "Communicator", singkatan: "COM", cluster: "N (Networking)", deskripsi: "Senang menyampaikan pesan dengan cara yang jelas dan mudah dipahami orang lain" },
         { id: "8", nama: "Creator", singkatan: "CRE", cluster: "Gi (Generating Idea)", deskripsi: "Senang menciptakan ide atau karya baru yang bermanfaat bagi orang lain" },
-        { id: "9", nama: "Designer", singkatan: "DES", cluster: "S (Servicing)", deskripsi: "Mampu menggambarkan karya yang akan dibuat dalam rancangan yang rinci dan akurat" },
+        { id: "9", nama: "Designer", singkatan: "DES", cluster: "Gi (Generating Idea)", deskripsi: "Mampu menggambarkan karya yang akan dibuat dalam rancangan yang rinci dan akurat" },
         { id: "10", nama: "Distributor", singkatan: "DIS", cluster: "Te (Technical)", deskripsi: "Pengelola proses penyaluran barang atau informasi kepada pihak yang membutuhkan" },
         { id: "11", nama: "Educator", singkatan: "EDU", cluster: "N (Networking)", deskripsi: "Senang mendidik dan membantu orang lain mengembangkan diri" },
-        { id: "12", nama: "Evaluator", singkatan: "EVA", cluster: "T (Thinking)", deskripsi: "Mampu melakukan pengamatan dan pemeriksaan mendalam untuk membuat penilaian atas sesuatu" },
+        { id: "12", nama: "Evaluator", singkatan: "EVA", cluster: "R (Reasoning)", deskripsi: "Mampu melakukan pengamatan dan pemeriksaan mendalam untuk membuat penilaian atas sesuatu" },
         { id: "13", nama: "Explorer", singkatan: "EXP", cluster: "R (Reasoning)", deskripsi: "Senang menyelidiki sesuatu secara sistematis sebagai upaya menemukan dan mengungkap fakta" },
         { id: "14", nama: "Interpreter", singkatan: "INT", cluster: "E (Elementary)", deskripsi: "Mampu menjelaskan dan menerjemahkan suatu pernyataan jadi lebih mudah dipahami" },
-        { id: "15", nama: "Journalist", singkatan: "JOU", cluster: "R (Reasoning)", deskripsi: "Senang mencari, mencatat dan menyebarluaskan informasi tentang kejadian sehari-hari" },
+        { id: "15", nama: "Journalist", singkatan: "JOU", cluster: "E (Elementary)", deskripsi: "Senang mencari, mencatat dan menyebarluaskan informasi tentang kejadian sehari-hari" },
         { id: "16", nama: "Marketer", singkatan: "MAR", cluster: "Gi (Generating Idea)", deskripsi: "Mampu merumuskan strategi promosi agar lebih banyak orang yang membeli produk atau jasanya" },
         { id: "17", nama: "Mediator", singkatan: "MED", cluster: "H (Headman)", deskripsi: "Mampu menjadi penengah yang membantu menyelesaikan konflik antar dua pihak yang berselisih" },
         { id: "18", nama: "Motivator", singkatan: "MOT", cluster: "N (Networking)", deskripsi: "Senang membangkitkan semangat orang lain untuk terus berusaha mencapai tujuan" },
         { id: "19", nama: "Operator", singkatan: "OPE", cluster: "Te (Technical)", deskripsi: "Senang mengoperasikan alat kerja dan memastikannya berfungsi dengan baik" },
-        { id: "20", nama: "Producer", singkatan: "PRO", cluster: "E (Elementary)", deskripsi: "Pelaksana produksi barang atau karya melalui proses kerja yang teratur dan sistematis" },
-        { id: "21", nama: "Quality Controller", singkatan: "QCA", cluster: "E (Elementary)", deskripsi: "Pemeriksa hasil kerja untuk memastikan kualitasnya sesuai standar yang ditetapkan" },
+        { id: "20", nama: "Producer", singkatan: "PRO", cluster: "Te (Technical)", deskripsi: "Pelaksana produksi barang atau karya melalui proses kerja yang teratur dan sistematis" },
+        { id: "21", nama: "Quality Controller", singkatan: "QCA", cluster: "Te (Technical)", deskripsi: "Pemeriksa hasil kerja untuk memastikan kualitasnya sesuai standar yang ditetapkan" },
         { id: "22", nama: "Restorer", singkatan: "RES", cluster: "R (Reasoning)", deskripsi: "Senang memperbaiki sesuatu kembali seperti keadaan semula atau menjadi lebih baik" },
         { id: "23", nama: "Safekeeper", singkatan: "SAF", cluster: "Te (Technical)", deskripsi: "Pelindung yang menjaga keselamatan orang dan lingkungan" },
         { id: "24", nama: "Seller", singkatan: "SEL", cluster: "H (Headman)", deskripsi: "Senang mempengaruhi orang lain untuk membeli barang atau jasa yang ditawarkannya" },
@@ -218,8 +224,20 @@
         { id: "30", nama: "Visionary", singkatan: "VIS", cluster: "Gi (Generating Idea)", deskripsi: "Senang berpikir jauh membayangkan gambaran cita-cita di masa depan" }
     ];
 
+    const deskripsiJurusan = {
+        "SMA IPA / MA Ilmu Alam": "Fokus pada ilmu pasti, sains, kesehatan, dan logika. Cocok karena kamu dominan di area Berpikir (Thinking) dan Menalar (Reasoning).",
+        "SMA IPS / MA Ilmu Sosial": "Fokus pada interaksi sosial, masyarakat, dan tata negara. Sesuai dengan kemampuan kuatmu di ranah Interpersonal (Networking & Headman).",
+        "SMA Bahasa & Sastra": "Fokus pada komunikasi, linguistik, dan kebudayaan. Sangat pas untukmu yang cakap dalam menyampaikan ide dan bahasa.",
+        "SMK Teknik / Rekayasa / IT": "Jurusan seperti Teknik Mesin, TKJ, RPL, atau Otomotif. Cocok dengan ketertarikanmu pada hal-hal praktis, teknologi, dan operasional (Technical).",
+        "SMK Bisnis, Manajemen & Akuntansi": "Jurusan seperti Akuntansi, Administrasi Perkantoran, atau Pemasaran. Sesuai dengan sifatmu yang rapi, teratur, dan teliti (Elementary/Headman).",
+        "SMK Seni, Desain & Industri Kreatif": "Jurusan seperti Multimedia, DKV, Tata Busana, atau Animasi. Sangat mendukung ide-ide kreatif dan inovatifmu (Generating Idea).",
+        "SMK Kesehatan & Pekerjaan Sosial": "Jurusan seperti Keperawatan, Farmasi, atau Pariwisata/Perhotelan. Sesuai dengan sifat alamimu yang suka merawat dan melayani (Servicing).",
+        "Pendidikan Pesantren / Madrasah Aliyah Agama": "Fokus pada pembinaan akhlak, agama, dan pelayanan umat. Relevan dengan sifat kepedulianmu dan kemampuan membimbing."
+    };
+    
     let dataPeserta = {};
     let statusWarna = {}; 
+    let kekuatanMerah = [];
 
     function mulaiTes() {
         const nama = document.getElementById("inputNama").value.trim();
@@ -229,7 +247,7 @@
         
         const idUnik = (nama + "_" + kelas + "_" + sekolah).toLowerCase();
         if (localStorage.getItem(idUnik) === "selesai") {
-            alert("Sistem mendeteksi Anda sudah pernah mengerjakan tes ini.");
+            alert("Identitas yang Anda gunakan sudah pernah mengerjakan tes ini.");
             return;
         }
 
@@ -309,6 +327,7 @@
         });
 
         renderPetaVisual();
+        kalkulasiRekomendasi();
     }
 
     function renderPetaVisual() {
@@ -320,7 +339,7 @@
         clusters.forEach(clusterName => {
             const groupDiv = document.createElement("div");
             groupDiv.className = "cluster-group";
-            
+
             const title = document.createElement("div");
             title.className = "cluster-title";
             title.innerText = clusterName;
@@ -341,11 +360,65 @@
         });
     }
 
+    function kalkulasiRekomendasi() {
+        let skorJurusan = {
+            "SMA IPA / MA Ilmu Alam": 0,
+            "SMA IPS / MA Ilmu Sosial": 0,
+            "SMA Bahasa & Sastra": 0,
+            "SMK Teknik / Rekayasa / IT": 0,
+            "SMK Bisnis, Manajemen & Akuntansi": 0,
+            "SMK Seni, Desain & Industri Kreatif": 0,
+            "SMK Kesehatan & Pekerjaan Sosial": 0,
+            "Pendidikan Pesantren / Madrasah Aliyah Agama": 0
+        };
+
+        kekuatanMerah.forEach(item => {
+            if(item.cluster === "T (Thinking)" || item.cluster === "R (Reasoning)") {
+                skorJurusan["SMA IPA / MA Ilmu Alam"] += 2;
+                skorJurusan["SMK Teknik / Rekayasa / IT"] += 1;
+            }
+            if(item.cluster === "H (Headman)" || item.cluster === "N (Networking)") {
+                skorJurusan["SMA IPS / MA Ilmu Sosial"] += 2;
+                skorJurusan["SMK Bisnis, Manajemen & Akuntansi"] += 1;
+                skorJurusan["Pendidikan Pesantren / Madrasah Aliyah Agama"] += 1; 
+            }
+            if(item.cluster === "S (Servicing)") {
+                skorJurusan["SMK Kesehatan & Pekerjaan Sosial"] += 2;
+                skorJurusan["Pendidikan Pesantren / Madrasah Aliyah Agama"] += 1;
+                skorJurusan["SMA IPS / MA Ilmu Sosial"] += 1;
+            }
+            if(item.cluster === "Gi (Generating Idea)") {
+                skorJurusan["SMK Seni, Desain & Industri Kreatif"] += 2;
+                skorJurusan["SMA Bahasa & Sastra"] += 1;
+            }
+            if(item.cluster === "E (Elementary)") {
+                skorJurusan["SMK Bisnis, Manajemen & Akuntansi"] += 2;
+            }
+            if(item.cluster === "Te (Technical)") {
+                skorJurusan["SMK Teknik / Rekayasa / IT"] += 2;
+            }
+            // Tambahan bobot khusus untuk peran komunikasi
+            if(item.singkatan === "INT" || item.singkatan === "COM") {
+                skorJurusan["SMA Bahasa & Sastra"] += 2;
+            }
+        });
+
+        // Mengurutkan jurusan berdasarkan skor tertinggi
+        let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] - skorJurusan[a]);
+
+        let rekomendasiHTML = "";
+        for(let i = 0; i < 3; i++) {
+            let jurusan = urutanRekomendasi[i];
+            if(skorJurusan[jurusan] > 0) { // Pastikan skor lebih dari 0
+                rekomendasiHTML += `<li><b>${jurusan}</b><br><span style="color:#555; font-size:0.9em;">${deskripsiJurusan[jurusan]}</span></li>`;
+            }
+        }
+        document.getElementById("listRekomendasi").innerHTML = rekomendasiHTML;
+    }
+    
     function unduhPDF() {
         const btn = document.getElementById('btnDownload');
         btn.style.display = 'none';
-        
-        // Memastikan layar bergeser ke paling atas sebelum direkam
         window.scrollTo(0, 0);
 
         html2pdf().set({
