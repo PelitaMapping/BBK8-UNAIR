@@ -314,7 +314,6 @@
         checked.forEach(id => statusWarna[id] = 'warna-merah');
         const sisaTahap1 = databasePeran.filter(item => statusWarna[item.id] === 'warna-putih');
         
-        document.getElementById("tahap2").classList.removeactive;
         document.getElementById("tahap2").classList.remove("active");
         document.getElementById("tahap3").classList.add("active");
         renderGrid("grid3", sisaTahap1, "counter3", "cekTahap3");
@@ -400,10 +399,7 @@ databasePeran.forEach(item => {
             "SMK Seni, Desain & Industri Kreatif": 0,
             "SMK Kesehatan & Pekerjaan Sosial": 0,
             "Pendidikan Pesantren / Madrasah Aliyah Agama": 0
-
-        }
-        document.getElementById("listRekomendasi").innerHTML = rekomendasiHTML;
-    };
+        };
 
         // Ambil data hanya yang berwarna merah dari statusWarna 
 const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] === 'warna-merah');
