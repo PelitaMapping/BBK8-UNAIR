@@ -83,8 +83,8 @@
         }
         .mode-cetak .logo-container {
             position: absolute;
-            top: 5px; 
-            right: 10px; 
+            top: 2px; 
+            right: 5px; 
             margin-bottom: 0;
             gap: 5px; /* Jarak ANTAR logo, 5px sangat mepet. Jika kurang mepet jadikan 2px atau 0 */
             justify-content: flex-end;
@@ -732,7 +732,7 @@ function unduhPDF() {
                 pdf.setFontSize(9);
                 pdf.setTextColor(150, 150, 150); // Warna teks footer (abu-abu)
                 
-            const teksFooter = `report ST-30 - ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
+            const teksFooter = `Report ST-30 - ${dataPeserta.nama} | BBK 8 Oro-Oro Ombo 1 UNAIR`;
                 
                 // Posisikan di tengah bawah halaman
                 const x = pdf.internal.pageSize.getWidth() / 2;
