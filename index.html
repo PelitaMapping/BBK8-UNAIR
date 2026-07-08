@@ -342,9 +342,16 @@
         listMerah.innerHTML = "";
         listHitam.innerHTML = "";
 
-        databasePeran.forEach(item => {
-            if (statusWarna[item.id] === 'warna-merah') listMerah.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
-            if (statusWarna[item.id] === 'warna-hitam') listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
+databasePeran.forEach(item => {
+            if (statusWarna[item.id] === 'warna-merah') {
+                listMerah.innerHTML += `<li><b>${item.nama}</b><br>
+                <span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}<br>
+                <b>Potensi Karir:</b> ${item.potensiKarir} dll.</span></li>`;
+            }
+            if (statusWarna[item.id] === 'warna-hitam') {
+                listHitam.innerHTML += `<li><b>${item.nama}</b><br>
+                <span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
+            }
         });
         
         renderPetaVisual();
@@ -393,14 +400,17 @@
             "Pendidikan Pesantren / Madrasah Aliyah Agama": 0
 
         let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] - skorJurusan[a]);
+
         let rekomendasiHTML = "";
-        for(let i = 0; i < 2; i++) { // DIBATASI HANYA 2
-            if(skorJurusan[urutanRekomendasi[i]] > 0) { 
-                rekomendasiHTML += `<li><b>${urutanRekomendasi[i]}</b><br><span style="color:#555; font-size:0.9em;">${deskripsiJurusan[urutanRekomendasi[i]]}</span></li>`;
+        // Ambil 3 Teratas
+        for(let i = 0; i < 3; i++) {
+            let jurusan = urutanRekomendasi[i];
+            if(skorJurusan[jurusan] > 0) { 
+                rekomendasiHTML += `<li><b>${jurusan}</b><br><span style="color:#555; font-size:0.9em;">${deskripsiJurusan[jurusan]}</span></li>`;
             }
         }
         document.getElementById("listRekomendasi").innerHTML = rekomendasiHTML;
-        };
+    };
 
         // Ambil data hanya yang berwarna merah dari statusWarna 
 const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] === 'warna-merah');
