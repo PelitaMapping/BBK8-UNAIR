@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tes Potensi ST30</title>
     
-    <!-- Library untuk mengubah HTML ke PDF otomatis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         
-        /* Modal / Pop-up Styles - Diperbarui agar bisa discroll */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); max-height: 80vh; overflow-y: auto; }
         .modal-content h2 { margin-top: 0; color: #2c3e50; text-align: center; }
@@ -21,67 +19,62 @@
         .modal-content .tips { background: #e9f5ff; padding: 10px; border-radius: 5px; font-size: 0.9em; border-left: 4px solid #007bff; margin-bottom: 15px;}
         .modal-footer { text-align: right; margin-top: 25px; }
         
-        /* Stage Management */
         .stage { display: none; }
         .stage.active { display: block; }
         
-        /* Form Identitas */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
         .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box; }
         
-        /* Grid and Items */
         .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .item-card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; display: flex; align-items: flex-start; }
         .item-card:hover { background-color: #f0f8ff; border-color: #007bff; }
         .item-card input { margin-right: 12px; margin-top: 4px; transform: scale(1.2); }
         .item-card span { font-size: 0.95em; line-height: 1.4; }
         
-        /* Buttons */
         .btn { background-color: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.2s; }
         .btn:hover { background-color: #0056b3; }
         .btn-submit { width: 100%; margin-top: 10px; }
         .btn-download { background-color: #28a745; margin-top: 20px; }
         .btn-download:hover { background-color: #218838; }
         
-        /* Results Section */
         .result-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #eee; }
         .result-section { margin-top: 20px; padding: 20px; border-radius: 8px; }
-        .merah { background-color: #fff0f0; border: 2px solid #ffcccc; }
-        .hitam { background-color: #f8f9fa; border: 2px solid #e9ecef; }
-        .merah h4 { color: #d93025; margin-top: 0; }
-        .hitam h4 { color: #495057; margin-top: 0; }
-        .result-list li { margin-bottom: 10px; line-height: 1.5; }
+        .merah-box { background-color: #fff0f0; border: 2px solid #ffcccc; }
+        .hitam-box { background-color: #f8f9fa; border: 2px solid #e9ecef; }
         
         .instruction-box { background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #ffeeba; }
         .counter-text { font-weight: bold; color: #007bff; margin-bottom: 15px; }
+
+        /* --- STYLING PETA VISUAL --- */
+        .map-container { background: #fff; padding: 20px; border: 2px solid #2c3e50; border-radius: 10px; margin-bottom: 30px; }
+        .map-title { text-align: center; font-weight: bold; color: #2c3e50; margin-top: 0; }
+        .map-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .cluster-group { display: flex; flex-direction: column; align-items: center; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 180px; }
+        .cluster-title { font-size: 0.8em; font-weight: bold; color: #555; margin-bottom: 10px; text-align: center; }
+        .circle-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        
+        /* Bulatan Singkatan */
+        .bulatan { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.8em; border: 2px solid #ccc; background-color: white; color: #333; box-shadow: 1px 2px 4px rgba(0,0,0,0.1); }
+        
+        /* Warna Dinamis */
+        .warna-merah { background-color: #ff3333; color: white; border-color: #cc0000; }
+        .warna-kuning { background-color: #ffff66; color: black; border-color: #cccc00; }
+        .warna-hitam { background-color: #333333; color: white; border-color: #000000; }
+        .warna-putih { background-color: #ffffff; color: #777; border-color: #ccc; }
+        /* --------------------------- */
     </style>
 </head>
 <body>
 
-<!-- POP UP PANDUAN -->
 <div id="modalPanduan" class="modal-overlay">
     <div class="modal-content">
         <h2>Panduan Pengerjaan Tes ST-30</h2>
-        <p>Tes ST-30 dirancang untuk membantu Anda mengenali kekuatan dan karakteristik unik dalam diri. Tes ini terdiri dari 3 tahap seleksi yang akan membantu mengidentifikasi pola kepribadian Anda.</p>
-        
+        <p>Tes ST-30 dirancang untuk membantu Anda mengenali kekuatan dan karakteristik unik dalam diri.</p>
         <h3>Tahapan Pengerjaan</h3>
-        <p><b>1. Identifikasi Karakteristik Diri</b><br>Pilih 10-20 pernyataan dari 30 yang tersedia yang sesuai dengan dirimu.<br><i>Tips: Pilih pernyataan yang terasa natural dan sering kamu lakukan dalam kehidupan sehari-hari.</i></p>
-        
-        <p><b>2. Tentukan Kekuatan Utama</b><br>Dari pilihan tahap 1, pilih tepat 7 pernyataan yang PALING SESUAI menggambarkan karakteristikmu.<br><i>Fokus: Pilih yang paling menonjol dan konsisten dalam perilaku dan kepribadianmu.</i></p>
-        
-        <p><b>3. Kenali Area Pengembangan</b><br>Dari pernyataan yang tersisa, pilih tepat 5 pernyataan yang PALING TIDAK SESUAI dengan dirimu.<br><i>Refleksi: Pernyataan mana yang jarang atau hampir tidak pernah kamu lakukan?</i></p>
-        
-        <div class="tips">
-            <b>Tips Pengerjaan:</b>
-            <ul style="margin: 5px 0 0 0; padding-left: 20px;">
-                <li>Jawab dengan jujur sesuai kondisi dirimu saat ini</li>
-                <li>Tidak ada jawaban yang benar atau salah</li>
-                <li>Kerjakan dengan santai, estimasi waktu: 10-15 menit</li>
-                <li>Progress akan otomatis tersimpan</li>
-            </ul>
-        </div>
-        
+        <p><b>1. Identifikasi Karakteristik Diri</b><br>Pilih 10-20 pernyataan dari 30 yang tersedia.</p>
+        <p><b>2. Tentukan Kekuatan Utama</b><br>Pilih tepat 7 pernyataan yang PALING SESUAI (Warna Merah).</p>
+        <p><b>3. Kenali Area Pengembangan</b><br>Pilih tepat 5 pernyataan yang PALING TIDAK SESUAI (Warna Hitam).</p>
         <div class="modal-footer">
             <button class="btn" onclick="tutupModal()">Oke, kerjakan sekarang</button>
         </div>
@@ -89,167 +82,122 @@
 </div>
 
 <div class="container" id="areaCetak">
-    <img src="LOGOKel1.png" alt="Logo" style="max-height: 80px; display: block; margin: 0 auto 15px auto;">
-    
-    <h2 style="text-align: center; color: #2c3e50;" id="judulUtama">Asesmen Minat dan Bakat </h2>
+    <h2 style="text-align: center; color: #2c3e50;" id="judulUtama">Asesmen Peta Kekuatan</h2>
+    <hr style="border: 0; height: 1px; background: #ddd; margin-bottom: 25px;" id="garisBatas">
 
-    <!-- TAHAP IDENTITAS -->
     <div id="tahapIdentitas" class="stage active">
-        <h3 style="margin-top: 0;">Data Diri Peserta</h3>
-        <p style="color: #666; margin-bottom: 20px;">Silakan lengkapi data diri Anda sebelum memulai pengerjaan tes.</p>
-        
-        <div class="form-group">
-            <label for="inputNama">Nama Lengkap</label>
-            <input type="text" id="inputNama" placeholder="Masukkan nama lengkap Anda" required>
-        </div>
-        <div class="form-group">
-            <label for="inputKelas">Kelas</label>
-            <input type="text" id="inputKelas" placeholder="Masukkan kelas Anda" required>
-        </div>
-        <div class="form-group">
-            <label for="inputSekolah">Sekolah / Instansi</label>
-            <input type="text" id="inputSekolah" placeholder="Masukkan nama sekolah Anda" required>
-        </div>
-        
+        <h3>Data Diri Peserta</h3>
+        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="inputNama" required></div>
+        <div class="form-group"><label>Kelas</label><input type="text" id="inputKelas" required></div>
+        <div class="form-group"><label>Sekolah / Instansi</label><input type="text" id="inputSekolah" required></div>
         <button class="btn btn-submit" onclick="mulaiTes()">Mulai Tes Sekarang</button>
     </div>
 
-    <!-- TAHAP 1 -->
     <div id="tahap1" class="stage">
-        <div class="instruction-box">
-            <b>Instruksi:</b> Mulai dengan Identifikasi dari 30 pernyataan di bawah, pilih 10-20 yang paling sesuai dengan dirimu. Pilih yang terasa natural dan sering kamu lakukan.
-        </div>
+        <div class="instruction-box"><b>Instruksi:</b> Pilih 10-20 pernyataan yang paling sesuai dengan dirimu.</div>
         <div class="counter-text" id="counter1">Terpilih: 0 (Minimal 10, Maksimal 20)</div>
         <div class="item-grid" id="grid1"></div>
         <button class="btn btn-submit" onclick="lanjutTahap2()">Lanjut ke Tahap 2</button>
     </div>
 
-    <!-- TAHAP 2 -->
     <div id="tahap2" class="stage">
-        <div class="instruction-box">
-            <b>Tahap 2:</b> Dari pilihan sebelumnya, pilih tepat 7 pernyataan yang merupakan Kekuatan Utama Anda.
-        </div>
+        <div class="instruction-box"><b>Tahap 2:</b> Pilih tepat 7 pernyataan yang merupakan Kekuatan Utama Anda.</div>
         <div class="counter-text" id="counter2">Terpilih: 0 (Harus pas 7)</div>
         <div class="item-grid" id="grid2"></div>
         <button class="btn btn-submit" onclick="lanjutTahap3()">Lanjut ke Tahap 3</button>
     </div>
 
-    <!-- TAHAP 3 -->
     <div id="tahap3" class="stage">
-        <div class="instruction-box">
-            <b>Tahap 3:</b> Dari pernyataan yang TIDAK Anda pilih di Tahap 1, pilih tepat 5 yang Paling Tidak Sesuai dengan Anda.
-        </div>
+        <div class="instruction-box"><b>Tahap 3:</b> Pilih tepat 5 yang Paling Tidak Sesuai dengan Anda.</div>
         <div class="counter-text" id="counter3">Terpilih: 0 (Harus pas 5)</div>
         <div class="item-grid" id="grid3"></div>
         <button class="btn btn-submit" onclick="tampilkanHasil()">Lihat Hasil Akhir</button>
     </div>
 
-    <!-- HASIL -->
     <div id="hasil" class="stage">
         <div class="result-header">
             <h2 style="margin: 0; color: #2c3e50;">Laporan Peta Kekuatan Individual</h2>
-            <p style="margin: 5px 0 0 0; color: #666;">Hasil Asesmen ST-30</p>
         </div>
         
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <table style="width: 100%; text-align: left;">
-                <tr><th style="width: 100px;">Nama</th><td id="resNama">: -</td></tr>
-                <tr><th>Kelas</th><td id="resKelas">: -</td></tr>
-                <tr><th>Sekolah</th><td id="resSekolah">: -</td></tr>
-            </table>
+        <table style="width: 100%; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+            <tr><th style="width: 100px;">Nama</th><td id="resNama">: -</td></tr>
+            <tr><th>Kelas</th><td id="resKelas">: -</td></tr>
+            <tr><th>Sekolah</th><td id="resSekolah">: -</td></tr>
+        </table>
+
+        <div class="map-container">
+            <h3 class="map-title">Strength Typology Map (ST-30)</h3>
+            <div class="map-grid" id="petaVisualArea">
+                </div>
         </div>
 
-        <div class="result-section merah">
-            <h4>7 KEKUATAN UTAMA (Core Strengths)</h4>
-            <p style="font-size: 0.9em; margin-top: -10px; color: #666;">Peran yang paling alami, dikuasai, dan menghasilkan kinerja terbaik.</p>
-            <ul class="result-list" id="listKekuatan"></ul>
+        <div class="result-section merah-box">
+            <h4 style="color: #d93025; margin-top: 0;">7 KEKUATAN UTAMA (Merah)</h4>
+            <ul id="listKekuatan"></ul>
         </div>
         
-        <div class="result-section hitam">
-            <h4>5 AREA KETERBATASAN (Blind Spots)</h4>
-            <p style="font-size: 0.9em; margin-top: -10px; color: #666;">Peran yang secara alami kurang sesuai dan berpotensi menguras energi.</p>
-            <ul class="result-list" id="listKelemahan"></ul>
+        <div class="result-section hitam-box">
+            <h4 style="color: #495057; margin-top: 0;">5 AREA KETERBATASAN (Hitam)</h4>
+            <ul id="listKelemahan"></ul>
         </div>
         
-        <br>
-        <!-- Tombol Download PDF -->
         <button class="btn btn-submit btn-download" id="btnDownload" onclick="unduhPDF()">Unduh Hasil (PDF)</button>
     </div>
 </div>
 
 <script>
-    // FUNGSI MODAL
-    function tutupModal() {
-        document.getElementById('modalPanduan').style.display = 'none';
-    }
+    function tutupModal() { document.getElementById('modalPanduan').style.display = 'none'; }
 
-    // DATABASE 30 SOAL & NAMA TIPOLOGI
+    // DATABASE 30 SOAL + SINGKATAN (Kode) + CLUSTER (Kelompok)
     const databasePeran = [
-        { id: "1", nama: "Administrator", deskripsi: "Pengelola catatan, jadwal aktivitas dan dokumen kerja yang rapi dan teratur" },
-        { id: "2", nama: "Ambassador", deskripsi: "Menjadi perwakilan dan juru bicara kelompok dalam berhubungan dengan pihak lain" },
-        { id: "3", nama: "Analyst", deskripsi: "Senang memahami dan menganalisa segala sesuatu secara logis terperinci" },
-        { id: "4", nama: "Arranger", deskripsi: "Pandai mengatur kordinasi orang atau sumber daya agar dapat bekerja sama dengan baik" },
-        { id: "5", nama: "Caretaker", deskripsi: "Senang memberi perhatian, perawatan dan dukungan agar orang lain tetap dalam keadaan baik" },
-        { id: "6", nama: "Commander", deskripsi: "Pemimpin yang tegas, berani menghadapi masalah secara langsung dan mengambil keputusan" },
-        { id: "7", nama: "Communicator", deskripsi: "Senang menyampaikan pesan dengan cara yang jelas dan mudah dipahami orang lain" },
-        { id: "8", nama: "Creator", deskripsi: "Senang menciptakan ide atau karya baru yang bermanfaat bagi orang lain" },
-        { id: "9", nama: "Designer", deskripsi: "Mampu menggambarkan karya yang akan dibuat dalam rancangan yang rinci dan akurat" },
-        { id: "10", nama: "Distributor", deskripsi: "Pengelola proses penyaluran barang atau informasi kepada pihak yang membutuhkan" },
-        { id: "11", nama: "Educator", deskripsi: "Senang mendidik dan membantu orang lain mengembangkan diri" },
-        { id: "12", nama: "Evaluator", deskripsi: "Mampu melakukan pengamatan dan pemeriksaan mendalam untuk membuat penilaian atas sesuatu" },
-        { id: "13", nama: "Explorer", deskripsi: "Senang menyelidiki sesuatu secara sistematis sebagai upaya menemukan dan mengungkap fakta" },
-        { id: "14", nama: "Interpreter", deskripsi: "Mampu menjelaskan dan menerjemahkan suatu pernyataan jadi lebih mudah dipahami" },
-        { id: "15", nama: "Journalist", deskripsi: "Senang mencari, mencatat dan menyebarluaskan informasi tentang kejadian sehari-hari" },
-        { id: "16", nama: "Marketer", deskripsi: "Mampu merumuskan strategi promosi agar lebih banyak orang yang membeli produk atau jasanya" },
-        { id: "17", nama: "Mediator", deskripsi: "Mampu menjadi penengah yang membantu menyelesaikan konflik antar dua pihak yang berselisih" },
-        { id: "18", nama: "Motivator", deskripsi: "Senang membangkitkan semangat orang lain untuk terus berusaha mencapai tujuan" },
-        { id: "19", nama: "Operator", deskripsi: "Senang mengoperasikan alat kerja dan memastikannya berfungsi dengan baik" },
-        { id: "20", nama: "Producer", deskripsi: "Pelaksana produksi barang atau karya melalui proses kerja yang teratur dan sistematis" },
-        { id: "21", nama: "Quality Controller", deskripsi: "Pemeriksa hasil kerja untuk memastikan kualitasnya sesuai standar yang ditetapkan" },
-        { id: "22", nama: "Restorer", deskripsi: "Senang memperbaiki sesuatu kembali seperti keadaan semula atau menjadi lebih baik" },
-        { id: "23", nama: "Safekeeper", deskripsi: "Pelindung yang menjaga keselamatan orang dan lingkungan" },
-        { id: "24", nama: "Seller", deskripsi: "Senang mempengaruhi orang lain untuk membeli barang atau jasa yang ditawarkannya" },
-        { id: "25", nama: "Server", deskripsi: "Senang melayani dan membantu orang lain dengan tulus" },
-        { id: "26", nama: "Selector", deskripsi: "Pandai memilih orang yang tepat untuk menjalankan suatu tugas atau peran tertentu" },
-        { id: "27", nama: "Strategist", deskripsi: "Mampu menyusun rencana dan langkah-langkah untuk mencapai tujuan" },
-        { id: "28", nama: "Synthesizer", deskripsi: "Mampu menggabungkan berbagai informasi, ide, atau sumber daya menjadi sesuatu yang baru dan bernilai" },
-        { id: "29", nama: "Treasurer", deskripsi: "Pandai mengatur dan mencatat urusan keuangan secara tertib, cermat dan teliti" },
-        { id: "30", nama: "Visionary", deskripsi: "Senang berpikir jauh membayangkan gambaran cita-cita di masa depan" }
+        { id: "1", nama: "Administrator", singkatan: "ADM", cluster: "E (Elementary)", deskripsi: "Pengelola catatan, jadwal aktivitas dan dokumen kerja yang rapi dan teratur" },
+        { id: "2", nama: "Ambassador", singkatan: "AMB", cluster: "N (Networking)", deskripsi: "Menjadi perwakilan dan juru bicara kelompok dalam berhubungan dengan pihak lain" },
+        { id: "3", nama: "Analyst", singkatan: "ANA", cluster: "T (Thinking)", deskripsi: "Senang memahami dan menganalisa segala sesuatu secara logis terperinci" },
+        { id: "4", nama: "Arranger", singkatan: "ARR", cluster: "N (Networking)", deskripsi: "Pandai mengatur kordinasi orang atau sumber daya agar dapat bekerja sama dengan baik" },
+        { id: "5", nama: "Caretaker", singkatan: "CAR", cluster: "S (Servicing)", deskripsi: "Senang memberi perhatian, perawatan dan dukungan agar orang lain tetap dalam keadaan baik" },
+        { id: "6", nama: "Commander", singkatan: "CMD", cluster: "H (Headman)", deskripsi: "Pemimpin yang tegas, berani menghadapi masalah secara langsung dan mengambil keputusan" },
+        { id: "7", nama: "Communicator", singkatan: "COM", cluster: "N (Networking)", deskripsi: "Senang menyampaikan pesan dengan cara yang jelas dan mudah dipahami orang lain" },
+        { id: "8", nama: "Creator", singkatan: "CRE", cluster: "Gi (Generating Idea)", deskripsi: "Senang menciptakan ide atau karya baru yang bermanfaat bagi orang lain" },
+        { id: "9", nama: "Designer", singkatan: "DES", cluster: "S (Servicing)", deskripsi: "Mampu menggambarkan karya yang akan dibuat dalam rancangan yang rinci dan akurat" },
+        { id: "10", nama: "Distributor", singkatan: "DIS", cluster: "Te (Technical)", deskripsi: "Pengelola proses penyaluran barang atau informasi kepada pihak yang membutuhkan" },
+        { id: "11", nama: "Educator", singkatan: "EDU", cluster: "N (Networking)", deskripsi: "Senang mendidik dan membantu orang lain mengembangkan diri" },
+        { id: "12", nama: "Evaluator", singkatan: "EVA", cluster: "T (Thinking)", deskripsi: "Mampu melakukan pengamatan dan pemeriksaan mendalam untuk membuat penilaian atas sesuatu" },
+        { id: "13", nama: "Explorer", singkatan: "EXP", cluster: "R (Reasoning)", deskripsi: "Senang menyelidiki sesuatu secara sistematis sebagai upaya menemukan dan mengungkap fakta" },
+        { id: "14", nama: "Interpreter", singkatan: "INT", cluster: "E (Elementary)", deskripsi: "Mampu menjelaskan dan menerjemahkan suatu pernyataan jadi lebih mudah dipahami" },
+        { id: "15", nama: "Journalist", singkatan: "JOU", cluster: "R (Reasoning)", deskripsi: "Senang mencari, mencatat dan menyebarluaskan informasi tentang kejadian sehari-hari" },
+        { id: "16", nama: "Marketer", singkatan: "MAR", cluster: "Gi (Generating Idea)", deskripsi: "Mampu merumuskan strategi promosi agar lebih banyak orang yang membeli produk atau jasanya" },
+        { id: "17", nama: "Mediator", singkatan: "MED", cluster: "H (Headman)", deskripsi: "Mampu menjadi penengah yang membantu menyelesaikan konflik antar dua pihak yang berselisih" },
+        { id: "18", nama: "Motivator", singkatan: "MOT", cluster: "N (Networking)", deskripsi: "Senang membangkitkan semangat orang lain untuk terus berusaha mencapai tujuan" },
+        { id: "19", nama: "Operator", singkatan: "OPE", cluster: "Te (Technical)", deskripsi: "Senang mengoperasikan alat kerja dan memastikannya berfungsi dengan baik" },
+        { id: "20", nama: "Producer", singkatan: "PRO", cluster: "E (Elementary)", deskripsi: "Pelaksana produksi barang atau karya melalui proses kerja yang teratur dan sistematis" },
+        { id: "21", nama: "Quality Controller", singkatan: "QCA", cluster: "E (Elementary)", deskripsi: "Pemeriksa hasil kerja untuk memastikan kualitasnya sesuai standar yang ditetapkan" },
+        { id: "22", nama: "Restorer", singkatan: "RES", cluster: "R (Reasoning)", deskripsi: "Senang memperbaiki sesuatu kembali seperti keadaan semula atau menjadi lebih baik" },
+        { id: "23", nama: "Safekeeper", singkatan: "SAF", cluster: "Te (Technical)", deskripsi: "Pelindung yang menjaga keselamatan orang dan lingkungan" },
+        { id: "24", nama: "Seller", singkatan: "SEL", cluster: "H (Headman)", deskripsi: "Senang mempengaruhi orang lain untuk membeli barang atau jasa yang ditawarkannya" },
+        { id: "25", nama: "Server", singkatan: "SER", cluster: "S (Servicing)", deskripsi: "Senang melayani dan membantu orang lain dengan tulus" },
+        { id: "26", nama: "Selector", singkatan: "SLC", cluster: "H (Headman)", deskripsi: "Pandai memilih orang yang tepat untuk menjalankan suatu tugas atau peran tertentu" },
+        { id: "27", nama: "Strategist", singkatan: "STR", cluster: "Gi (Generating Idea)", deskripsi: "Mampu menyusun rencana dan langkah-langkah untuk mencapai tujuan" },
+        { id: "28", nama: "Synthesizer", singkatan: "SYN", cluster: "Gi (Generating Idea)", deskripsi: "Mampu menggabungkan berbagai informasi, ide, atau sumber daya menjadi sesuatu yang baru dan bernilai" },
+        { id: "29", nama: "Treasurer", singkatan: "TRE", cluster: "T (Thinking)", deskripsi: "Pandai mengatur dan mencatat urusan keuangan secara tertib, cermat dan teliti" },
+        { id: "30", nama: "Visionary", singkatan: "VIS", cluster: "Gi (Generating Idea)", deskripsi: "Senang berpikir jauh membayangkan gambaran cita-cita di masa depan" }
     ];
 
     let dataPeserta = {};
-    let terpilihTahap1 = [];
-    let tidakTerpilihTahap1 = [];
-    let kekuatanMerah = [];
-    let kelemahanHitam = [];
+    let statusWarna = {}; // Menyimpan warna tiap ID
 
-    // FUNGSI MEMULAI TES (Validasi Identitas & Pengecekan 1x Pengerjaan)
     function mulaiTes() {
         const nama = document.getElementById("inputNama").value.trim();
         const kelas = document.getElementById("inputKelas").value.trim();
         const sekolah = document.getElementById("inputSekolah").value.trim();
-
-        if (!nama || !kelas || !sekolah) {
-            alert("Harap lengkapi Nama, Kelas, dan Sekolah terlebih dahulu!");
-            return;
-        }
-
-        // Kunci Unik berdasarkan Nama + Kelas + Sekolah (dihurufkecilkan agar tidak sensitif huruf besar/kecil)
-        const idUnik = (nama + "_" + kelas + "_" + sekolah).toLowerCase();
+        if (!nama || !kelas || !sekolah) { alert("Lengkapi data!"); return; }
         
-        // Cek apakah identitas ini sudah pernah mengerjakan
-        if (localStorage.getItem(idUnik) === "selesai") {
-            alert("Mohon maaf, sistem mendeteksi Anda sudah pernah mengerjakan tes ini. Anda tidak dapat mengulang tes dengan identitas yang sama.");
-            return;
-        }
-
-        // Tandai bahwa identitas ini mulai mengerjakan
-        localStorage.setItem(idUnik, "selesai");
         dataPeserta = { nama, kelas, sekolah };
+        
+        // Inisialisasi semua peran dengan warna putih default
+        databasePeran.forEach(p => statusWarna[p.id] = 'warna-putih');
 
         document.getElementById("tahapIdentitas").classList.remove("active");
         document.getElementById("tahap1").classList.add("active");
-        
         renderGrid("grid1", databasePeran, "counter1", "cekTahap1");
     }
 
@@ -259,68 +207,52 @@
         dataArray.forEach(item => {
             const label = document.createElement("label");
             label.className = "item-card";
-            label.innerHTML = `
-                <input type="checkbox" name="${inputName}" value="${item.id}" onchange="updateCounter('${inputName}', '${counterId}')">
-                <span>${item.deskripsi}</span>
-            `;
+            label.innerHTML = `<input type="checkbox" name="${inputName}" value="${item.id}" onchange="updateCounter('${inputName}', '${counterId}')"><span>${item.deskripsi}</span>`;
             container.appendChild(label);
         });
     }
 
     function updateCounter(inputName, counterId) {
-        const jumlah = document.querySelectorAll(`input[name="${inputName}"]:checked`).length;
-        document.getElementById(counterId).innerText = `Terpilih: ${jumlah}`;
+        document.getElementById(counterId).innerText = `Terpilih: ${document.querySelectorAll(`input[name="${inputName}"]:checked`).length}`;
     }
 
     function lanjutTahap2() {
-        const checked = document.querySelectorAll('input[name="cekTahap1"]:checked');
-        if (checked.length < 10 || checked.length > 20) {
-            alert("Sesuai instruksi, harap pilih antara 10 hingga 20 pernyataan!");
-            return;
-        }
+        const checked = Array.from(document.querySelectorAll('input[name="cekTahap1"]:checked')).map(cb => cb.value);
+        if (checked.length < 10 || checked.length > 20) { alert("Pilih 10-20 pernyataan!"); return; }
         
-        let checkedIds = Array.from(checked).map(cb => cb.value);
-        terpilihTahap1 = databasePeran.filter(item => checkedIds.includes(item.id));
-        tidakTerpilihTahap1 = databasePeran.filter(item => !checkedIds.includes(item.id));
+        // Semua yang dipilih di tahap 1 awalnya diset warna KUNING
+        checked.forEach(id => statusWarna[id] = 'warna-kuning');
 
+        const terpilih = databasePeran.filter(item => checked.includes(item.id));
         document.getElementById("tahap1").classList.remove("active");
         document.getElementById("tahap2").classList.add("active");
-        
-        renderGrid("grid2", terpilihTahap1, "counter2", "cekTahap2");
+        renderGrid("grid2", terpilih, "counter2", "cekTahap2");
         window.scrollTo(0, 0); 
     }
 
     function lanjutTahap3() {
-        const checked = document.querySelectorAll('input[name="cekTahap2"]:checked');
-        if (checked.length !== 7) {
-            alert("Harap pilih TEPAT 7 pernyataan sebagai Kekuatan Utama!");
-            return;
-        }
+        const checked = Array.from(document.querySelectorAll('input[name="cekTahap2"]:checked')).map(cb => cb.value);
+        if (checked.length !== 7) { alert("Pilih TEPAT 7 pernyataan!"); return; }
 
-        let checkedIds = Array.from(checked).map(cb => cb.value);
-        kekuatanMerah = terpilihTahap1.filter(item => checkedIds.includes(item.id));
+        // 7 yang lolos ditimpa menjadi warna MERAH
+        checked.forEach(id => statusWarna[id] = 'warna-merah');
 
+        const sisaTahap1 = databasePeran.filter(item => statusWarna[item.id] === 'warna-putih');
         document.getElementById("tahap2").classList.remove("active");
         document.getElementById("tahap3").classList.add("active");
-        
-        renderGrid("grid3", tidakTerpilihTahap1, "counter3", "cekTahap3");
+        renderGrid("grid3", sisaTahap1, "counter3", "cekTahap3");
         window.scrollTo(0, 0);
     }
 
     function tampilkanHasil() {
-        const checked = document.querySelectorAll('input[name="cekTahap3"]:checked');
-        if (checked.length !== 5) {
-            alert("Harap pilih TEPAT 5 pernyataan sebagai Area Keterbatasan!");
-            return;
-        }
+        const checked = Array.from(document.querySelectorAll('input[name="cekTahap3"]:checked')).map(cb => cb.value);
+        if (checked.length !== 5) { alert("Pilih TEPAT 5 pernyataan!"); return; }
 
-        let checkedIds = Array.from(checked).map(cb => cb.value);
-        kelemahanHitam = tidakTerpilihTahap1.filter(item => checkedIds.includes(item.id));
+        // 5 yang dipilih di akhir diset menjadi warna HITAM
+        checked.forEach(id => statusWarna[id] = 'warna-hitam');
 
         document.getElementById("tahap3").classList.remove("active");
         document.getElementById("hasil").classList.add("active");
-        
-        // Sembunyikan judul utama agar tidak ikut ter-PDF kan ganda
         document.getElementById("judulUtama").style.display = "none";
         document.getElementById("garisBatas").style.display = "none";
         
@@ -330,38 +262,61 @@
         document.getElementById("resKelas").innerText = `: ${dataPeserta.kelas}`;
         document.getElementById("resSekolah").innerText = `: ${dataPeserta.sekolah}`;
 
+        // Render List Teks
         const listMerah = document.getElementById("listKekuatan");
-        kekuatanMerah.forEach(item => {
-            listMerah.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
+        const listHitam = document.getElementById("listKelemahan");
+        databasePeran.forEach(item => {
+            if (statusWarna[item.id] === 'warna-merah') listMerah.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
+            if (statusWarna[item.id] === 'warna-hitam') listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
         });
 
-        const listHitam = document.getElementById("listKelemahan");
-        kelemahanHitam.forEach(item => {
-            listHitam.innerHTML += `<li><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsi}</span></li>`;
+        // Render Peta Visual
+        renderPetaVisual();
+    }
+
+    function renderPetaVisual() {
+        const petaArea = document.getElementById("petaVisualArea");
+        petaArea.innerHTML = "";
+        
+        // Mengelompokkan berdasarkan cluster
+        const clusters = ["H (Headman)", "N (Networking)", "T (Thinking)", "R (Reasoning)", "E (Elementary)", "Te (Technical)", "Gi (Generating Idea)", "S (Servicing)"];
+        
+        clusters.forEach(clusterName => {
+            const groupDiv = document.createElement("div");
+            groupDiv.className = "cluster-group";
+            
+            const title = document.createElement("div");
+            title.className = "cluster-title";
+            title.innerText = clusterName;
+            groupDiv.appendChild(title);
+            
+            const circleContainer = document.createElement("div");
+            circleContainer.className = "circle-container";
+            
+            // Ambil peran yang sesuai dengan cluster ini
+            databasePeran.filter(p => p.cluster === clusterName).forEach(p => {
+                const bulatan = document.createElement("div");
+                // Class warna akan ditambahkan sesuai statusWarna
+                bulatan.className = `bulatan ${statusWarna[p.id]}`; 
+                bulatan.innerText = p.singkatan;
+                circleContainer.appendChild(bulatan);
+            });
+            
+            groupDiv.appendChild(circleContainer);
+            petaArea.appendChild(groupDiv);
         });
     }
 
-    // FUNGSI UNDUH PDF
     function unduhPDF() {
-        const tombolDownload = document.getElementById('btnDownload');
-        const elemenCetak = document.getElementById('areaCetak');
-        
-        // Sembunyikan tombol saat dirender ke PDF
-        tombolDownload.style.display = 'none';
-
-        // Konfigurasi PDF
-        const opsi = {
-            margin:       15,
-            filename:     'Hasil_ST30_' + dataPeserta.nama.replace(/\s+/g, '_') + '.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        // Proses buat PDF lalu munculkan tombol kembali
-        html2pdf().set(opsi).from(elemenCetak).save().then(() => {
-            tombolDownload.style.display = 'block';
-        });
+        const btn = document.getElementById('btnDownload');
+        btn.style.display = 'none';
+        html2pdf().set({
+            margin: 10,
+            filename: `Hasil_ST30_${dataPeserta.nama.replace(/\s+/g, '_')}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(document.getElementById('areaCetak')).save().then(() => btn.style.display = 'block');
     }
 </script>
 
