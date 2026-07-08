@@ -172,12 +172,6 @@
                 </div>
         </div>
 
-        <div class="result-section rekomendasi-box">
-            <h4 style="color: #1565c0; margin-top: 0; font-size: 1.2em;">🎓 Rekomendasi Sekolah Lanjutan</h4>
-            <p style="font-size: 0.9em; color: #333; margin-top: -10px;">Berdasarkan kekuatan dominanmu, berikut adalah arah pendidikan yang paling sesuai agar potensimu berkembang maksimal:</p>
-            <ul class="rek-list" id="listRekomendasi"></ul>
-        </div>
-        
         <div class="result-section merah-box">
             <h4 style="color: #d93025; margin-top: 0;">KEKUATAN UTAMA</h4>
             <ul id="listKekuatan"></ul>
@@ -186,6 +180,12 @@
         <div class="result-section hitam-box">
             <h4 style="color: #495057; margin-top: 0;">AREA KETERBATASAN</h4>
             <ul id="listKelemahan"></ul>
+        </div>
+
+        <div class="result-section rekomendasi-box">
+            <h3 style="color: #007bff; margin-top: 0; font-size: 1.3em; text-align: center;">Rekomendasi Sekolah Lanjutan</h3>
+            <p style="font-size: 0.95em; color: #333; text-align: center; margin-bottom: 15px;">Berdasarkan kekuatan dominanmu, berikut adalah rekomendasi jurusan lanjutan yang paling sesuai agar potensimu berkembang maksimal:</p>
+            <ul class="rek-list" id="listRekomendasi"></ul>
         </div>
         
         <button class="btn btn-submit btn-download" id="btnDownload" onclick="unduhPDF()">Unduh Hasil (PDF)</button>
@@ -376,6 +376,9 @@
             "Pendidikan Pesantren / Madrasah Aliyah Agama": 0
         };
 
+        // Ambil data hanya yang berwarna merah dari statusWarna 
+        const kekuatanMerahAktual = databasePeran.filter(item => statusWarna[item.id] === 'warna-merah');
+        
         kekuatanMerah.forEach(item => {
             if(item.cluster === "T (Thinking)" || item.cluster === "R (Reasoning)") {
                 skorJurusan["SMA IPA / MA Ilmu Alam"] += 2;
