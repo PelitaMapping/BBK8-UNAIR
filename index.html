@@ -73,11 +73,25 @@
 <div id="modalPanduan" class="modal-overlay">
     <div class="modal-content">
         <h2>Panduan Pengerjaan Tes ST-30</h2>
-        <p>Tes ST-30 dirancang untuk membantu Anda mengenali kekuatan dan karakteristik unik dalam diri.</p>
+        <p>Tes ST-30 dirancang untuk membantu Anda mengenali kekuatan dan karakteristik unik dalam diri. Tes ini terdiri dari 3 tahap seleksi yang akan membantu mengidentifikasi pola kepribadian Anda.</p>
+        
         <h3>Tahapan Pengerjaan</h3>
-        <p><b>1. Identifikasi Karakteristik Diri</b><br>Pilih 10-20 pernyataan dari 30 yang tersedia.</p>
-        <p><b>2. Tentukan Kekuatan Utama</b><br>Pilih tepat 7 pernyataan yang PALING SESUAI (Warna Merah).</p>
-        <p><b>3. Kenali Area Pengembangan</b><br>Pilih tepat 5 pernyataan yang PALING TIDAK SESUAI (Warna Hitam).</p>
+        <p><b>1. Identifikasi Karakteristik Diri</b><br>Pilih 10-20 pernyataan dari 30 yang tersedia yang sesuai dengan dirimu.<br><i>Tips: Pilih pernyataan yang terasa natural dan sering kamu lakukan dalam kehidupan sehari-hari.</i></p>
+        
+        <p><b>2. Tentukan Kekuatan Utama</b><br>Dari pilihan tahap 1, pilih tepat 7 pernyataan yang PALING SESUAI menggambarkan karakteristikmu.<br><i>Fokus: Pilih yang paling menonjol dan konsisten dalam perilaku dan kepribadianmu.</i></p>
+        
+        <p><b>3. Kenali Area Pengembangan</b><br>Dari pernyataan yang tersisa, pilih tepat 5 pernyataan yang PALING TIDAK SESUAI dengan dirimu.<br><i>Refleksi: Pernyataan mana yang jarang atau hampir tidak pernah kamu lakukan?</i></p>
+        
+        <div class="tips">
+            <b>Tips Pengerjaan:</b>
+            <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                <li>Jawab dengan jujur sesuai kondisi dirimu saat ini</li>
+                <li>Tidak ada jawaban yang benar atau salah</li>
+                <li>Kerjakan dengan santai, estimasi waktu: 10-15 menit</li>
+                <li>Progress akan otomatis tersimpan</li>
+            </ul>
+        </div>
+        
         <div class="modal-footer">
             <button class="btn" onclick="tutupModal()">Oke, kerjakan sekarang</button>
         </div>
@@ -85,21 +99,27 @@
 </div>
 
 <div class="container" id="areaCetak">
-    
-    <div class="logo-container">
-        <img src="LOGOKel1.png" alt="Logo 1" onerror="this.style.display='none'">
-        <img src="logoUNAIR.png" alt="Logo 2" onerror="this.style.display='none'">
-        <img src="LogoLPMB.png" alt="Logo 3" onerror="this.style.display='none'">
-    </div>
-
-    <h2 style="text-align: center; color: #2c3e50;" id="judulUtama">Asesmen Peta Kekuatan</h2>
+    <h2 style="text-align: center; color: #2c3e50;" id="judulUtama">Asesmen Minat dan Bakat</h2>
     <hr style="border: 0; height: 1px; background: #ddd; margin-bottom: 25px;" id="garisBatas">
 
+    <!-- TAHAP IDENTITAS -->
     <div id="tahapIdentitas" class="stage active">
-        <h3>Data Diri Peserta</h3>
-        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="inputNama" required></div>
-        <div class="form-group"><label>Kelas</label><input type="text" id="inputKelas" required></div>
-        <div class="form-group"><label>Sekolah / Instansi</label><input type="text" id="inputSekolah" required></div>
+        <h3 style="margin-top: 0;">Data Diri Peserta</h3>
+        <p style="color: #666; margin-bottom: 20px;">Silakan lengkapi data diri Anda sebelum memulai pengerjaan tes.</p>
+        
+        <div class="form-group">
+            <label for="inputNama">Nama Lengkap</label>
+            <input type="text" id="inputNama" placeholder="Masukkan nama lengkap Anda" required>
+        </div>
+        <div class="form-group">
+            <label for="inputKelas">Kelas</label>
+            <input type="text" id="inputKelas" placeholder="Masukkan kelas Anda" required>
+        </div>
+        <div class="form-group">
+            <label for="inputSekolah">Sekolah / Instansi</label>
+            <input type="text" id="inputSekolah" placeholder="Masukkan nama sekolah Anda" required>
+        </div>
+        
         <button class="btn btn-submit" onclick="mulaiTes()">Mulai Tes Sekarang</button>
     </div>
 
