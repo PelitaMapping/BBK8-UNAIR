@@ -149,7 +149,7 @@
         </div>
         
         <div class="modal-footer">
-            <button class="btn" onclick="tutupModal()">Oke, kerjakan sekarang</button>
+            <button class="btn btn-submit" onclick="tutupModal()">Oke, kerjakan sekarang</button>
         </div>
     </div>
 </div>
@@ -265,8 +265,8 @@
     </div>
 
 <script>
-    function tutupModal() { 
-        document.getElementById('modalPanduan').style.display = 'none'; 
+    function tutupModal() {
+    document.querySelector('.modal-overlay').style.display = 'none';
     }
 
     const databasePeran = [
