@@ -108,6 +108,10 @@
         .mode-cetak {
             position: relative;
             padding-top: 50px !important;
+            padding-bottom: 0px !important;
+            margin-bottom: 0px !important;
+            border: none !important;
+            box-shadow: none !important;
         }
         .mode-cetak .logo-container {
             position: absolute;
@@ -764,7 +768,7 @@ function unduhPDF() {
     window.scrollTo(0, 0);
 
     const opsiPDF = {
-        margin: [10, 10, 20, 10],
+        margin: [10, 10, 10, 10],
         filename: `Hasil Tes_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
