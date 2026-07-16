@@ -41,13 +41,13 @@
         .btn-download:hover { background-color: #218838; }
         
 .result-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #eee; }
-        .result-section { margin-top: 20px; padding: 20px; border-radius: 8px; page-break-inside: avoid; }
+        .result-section { margin-top: 15px; padding: 15px; border-radius: 8px; page-break-inside: avoid; }
         .merah-box { background-color: #fff0f0; border: 2px solid #ffcccc; }
         .hitam-box { background-color: #f8f9fa; border: 2px solid #e9ecef; }
         
         /* --- KODE REKOMENDASI JURUSAN --- */
-        .rekomendasi-box { background-color: #f0f8ff; border: 2px dashed #007bff; margin-top: 30px; }
-        .rek-list li { margin-bottom: 12px; line-height: 1.5; font-size: 1.05em; }
+        .rekomendasi-box { background-color: #f0f8ff; border: 2px dashed #007bff; margin-top: 15px; }
+        .rek-list li { margin-bottom: 8px; line-height: 1.4; font-size: 1em; }
         
         .instruction-box { background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #ffeeba; }
         .counter-text { font-weight: bold; color: #007bff; margin-bottom: 15px; }
@@ -769,7 +769,7 @@ function unduhPDF() {
         window.scrollTo(0, 0);
 
         const opsiPDF = {
-            margin: [10, 10, 15, 10], // Margin bawah diturunkan ke 15 agar tidak muncul halaman kosong
+            margin: [10, 10, 20, 10], // Margin bawah diset di angka 20 agar aman dari tabrakan
             filename: `Hasil Tes_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
@@ -786,17 +786,17 @@ function unduhPDF() {
                 for (let i = 1; i <= totalPages; i++) {
                     pdf.setPage(i);
                     
-                    // --- TEKS UNTUK SEMUA HALAMAN ---
+                    // --- TEKS UNTUK SEMUA HALAMAN (Muncul di Halaman 1, 2, dan 3) ---
                     pdf.setFontSize(9);
                     pdf.setTextColor(120, 120, 120); 
-                    pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 8, { align: 'center' });
+                    pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 7, { align: 'center' });
 
-                    // --- TEKS KHUSUS HALAMAN TERAKHIR SAJA ---
+                    // --- TEKS KHUSUS HALAMAN TERAKHIR SAJA (Hanya Halaman 3) ---
                     if (i === totalPages) {
                         pdf.setFontSize(7); 
                         pdf.setTextColor(150, 150, 150); 
-                        pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.", centerX, pdf.internal.pageSize.getHeight() - 16, { align: 'center' });
-                        pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 12, { align: 'center' });
+                        pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.", centerX, pdf.internal.pageSize.getHeight() - 15, { align: 'center' });
+                        pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 11, { align: 'center' });
                     }
                 }
             } catch (e) {
