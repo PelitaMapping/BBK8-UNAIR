@@ -782,18 +782,31 @@ function unduhPDF() {
         const pageWidth = pdf.internal.pageSize.getWidth();
         const centerX = pageWidth / 2;
 
-        // Footer "Report..." tetap di setiap halaman
         for (let i = 1; i <= totalPages; i++) {
             pdf.setPage(i);
+            
+            // 1. Teks "Report..." (Baris paling bawah)
             pdf.setFontSize(9);
             pdf.setTextColor(120, 120, 120); 
-            pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 7, { align: 'center' });
+            pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 10, { align: 'center' });
+
+            // 2. Baris baru yang Anda minta (tepat di bawah Report)
+            pdf.setFontSize(7); // Ukuran lebih kecil
+            pdf.setTextColor(150, 150, 150); 
+            pdf.text("Bukan untuk tujuan komersial. Diadaptasi dari ST-30 hak cipta Talents Mapping®.", centerX, pdf.internal.pageSize.getHeight() - 6, { align: 'center' });
+
+            // 3. Teks "Perhatian..." KHUSUS Halaman Terakhir (Geser posisinya agar tidak bertumpuk)
+            if (i === totalPages) { 
+                pdf.setFontSize(7); 
+                pdf.setTextColor(150, 150, 150); 
+                pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.", centerX, pdf.internal.pageSize.getHeight() - 22, { align: 'center' });
+                pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 18, { align: 'center' });
+            }
         }
     }).save().then(function() {
         btn.style.display = 'block';
         area.classList.remove('mode-cetak');
     });
-}
 // --- SISTEM PENYIMPANAN PROGRESS (SESSIONSTORAGE) ---
     function simpanProgress(tahap) {
         const dataSimpan = { dataPeserta, statusWarna, tahapAktif: tahap };
