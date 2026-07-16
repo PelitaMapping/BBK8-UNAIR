@@ -761,7 +761,6 @@ let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] -
 function unduhPDF() {
         const btn = document.getElementById('btnDownload');
         const area = document.getElementById('areaCetak');
-        const footer = document.getElementById('footerWeb'); // Penanda footer web
         
         // Sembunyikan tombol dari PDF
         btn.style.display = 'none';
@@ -770,7 +769,7 @@ function unduhPDF() {
         window.scrollTo(0, 0);
 
         const opsiPDF = {
-            margin: [10, 10, 25, 10], // Margin bawah 25 agar muat 3 baris teks PDF
+            margin: [10, 10, 15, 10], // Margin bawah diturunkan ke 15 agar tidak muncul halaman kosong
             filename: `Hasil Tes_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
@@ -787,18 +786,18 @@ function unduhPDF() {
                 for (let i = 1; i <= totalPages; i++) {
                     pdf.setPage(i);
                     
-                    // Baris 1: Judul dan Nama
+                    // --- TEKS UNTUK SEMUA HALAMAN ---
                     pdf.setFontSize(9);
                     pdf.setTextColor(120, 120, 120); 
-                    pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 17, { align: 'center' });
+                    pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 8, { align: 'center' });
 
-                    // Baris 2: Teks Perhatian KKN
-                    pdf.setFontSize(7); 
-                    pdf.setTextColor(150, 150, 150); 
-                    pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.", centerX, pdf.internal.pageSize.getHeight() - 12, { align: 'center' });
-                    
-                    // Baris 3: Teks Hak Cipta
-                    pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 8, { align: 'center' });
+                    // --- TEKS KHUSUS HALAMAN TERAKHIR SAJA ---
+                    if (i === totalPages) {
+                        pdf.setFontSize(7); 
+                        pdf.setTextColor(150, 150, 150); 
+                        pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.", centerX, pdf.internal.pageSize.getHeight() - 16, { align: 'center' });
+                        pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 12, { align: 'center' });
+                    }
                 }
             } catch (e) {
                 console.error("Error saat memproses PDF:", e);
