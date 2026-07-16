@@ -585,7 +585,12 @@
     }
 
     function updateCounter(inputName, counterId) {
-        document.getElementById(counterId).innerText = `Terpilih: ${document.querySelectorAll(`input[name="${inputName}"]:checked`).length}`;
+        const checked = document.querySelectorAll(`input[name="${inputName}"]:checked`);
+        document.getElementById(counterId).innerText = `Terpilih: ${checked.length}`;
+        
+        // Simpan checklist sementara secara real-time ke penyimpanan
+        const checkedValues = Array.from(checked).map(cb => cb.value);
+        sessionStorage.setItem('temp_' + inputName, JSON.stringify(checkedValues));
     }
 
     function lanjutTahap2() {
@@ -804,22 +809,24 @@ function unduhPDF() {
         alert("Gagal mengunduh PDF. Pastikan koneksi internet stabil.");
     });
 }
-    // --- SISTEM PENYIMPANAN PROGRESS (SESSIONSTORAGE) ---
+// --- SISTEM PENYIMPANAN PROGRESS (SESSIONSTORAGE) ---
     function simpanProgress(tahap) {
         const dataSimpan = { dataPeserta, statusWarna, tahapAktif: tahap };
-        // Menyimpan data sementara yang akan hilang otomatis saat tab ditutup
         sessionStorage.setItem('progressAsesmen', JSON.stringify(dataSimpan));
     }
 
-    function centangPilihan(inputName, warnaYangDicari) {
-        const checkboxes = document.querySelectorAll(`input[name="${inputName}"]`);
-        checkboxes.forEach(cb => {
-            if (warnaYangDicari.includes(statusWarna[cb.value])) {
-                cb.checked = true;
-            }
-        });
-        const counterId = "counter" + inputName.replace("cekTahap", "");
-        updateCounter(inputName, counterId);
+    function kembalikanCentang(inputName) {
+        const tersimpan = sessionStorage.getItem('temp_' + inputName);
+        if (tersimpan) {
+            const checkedValues = JSON.parse(tersimpan);
+            checkedValues.forEach(val => {
+                const cb = document.querySelector(`input[name="${inputName}"][value="${val}"]`);
+                if (cb) cb.checked = true; // Kembalikan centang
+            });
+            // Update teks counter agar jumlahnya juga akurat
+            const counterId = "counter" + inputName.replace("cekTahap", "");
+            document.getElementById(counterId).innerText = `Terpilih: ${checkedValues.length}`;
+        }
     }
 
     // Berjalan otomatis saat halaman dimuat (refresh)
@@ -839,19 +846,19 @@ function unduhPDF() {
             if (data.tahapAktif === 'tahap1') {
                 document.getElementById("tahap1").classList.add("active");
                 renderGrid("grid1", databasePeran, "counter1", "cekTahap1");
-                centangPilihan('cekTahap1', ['warna-kuning', 'warna-merah', 'warna-hitam']);
+                kembalikanCentang("cekTahap1"); // Panggil centang yang tersimpan
             } 
             else if (data.tahapAktif === 'tahap2') {
                 document.getElementById("tahap2").classList.add("active");
                 const terpilih = databasePeran.filter(item => statusWarna[item.id] !== 'warna-putih');
                 renderGrid("grid2", terpilih, "counter2", "cekTahap2");
-                centangPilihan('cekTahap2', ['warna-merah', 'warna-hitam']);
+                kembalikanCentang("cekTahap2"); // Panggil centang yang tersimpan
             } 
             else if (data.tahapAktif === 'tahap3') {
                 document.getElementById("tahap3").classList.add("active");
-                const sisaTahap1 = databasePeran.filter(item => statusWarna[item.id] === 'warna-putih' || statusWarna[item.id] === 'warna-hitam');
+                const sisaTahap1 = databasePeran.filter(item => statusWarna[item.id] === 'warna-putih');
                 renderGrid("grid3", sisaTahap1, "counter3", "cekTahap3");
-                centangPilihan('cekTahap3', ['warna-hitam']);
+                kembalikanCentang("cekTahap3"); // Panggil centang yang tersimpan
             } 
             else if (data.tahapAktif === 'hasil') {
                 document.getElementById("hasil").classList.add("active");
