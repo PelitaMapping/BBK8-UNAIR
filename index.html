@@ -761,18 +761,14 @@ let urutanRekomendasi = Object.keys(skorJurusan).sort((a, b) => skorJurusan[b] -
 function unduhPDF() {
     const btn = document.getElementById('btnDownload');
     const area = document.getElementById('areaCetak');
-    const footer = document.getElementById('footerWeb'); // Penanda footer web
     
-    // Sembunyikan tombol dan footer web dari area cetak HTML
+    // Sembunyikan tombol saat dicetak
     btn.style.display = 'none';
-    if (footer) footer.style.display = 'none'; 
-    
     area.classList.add('mode-cetak');
     window.scrollTo(0, 0);
 
     const opsiPDF = {
-        // Margin bawah diubah jadi 25 agar ada ruang untuk 3 baris teks
-        margin: [10, 10, 25, 10], 
+        margin: [10, 10, 20, 10], // Margin bawah diset 20 agar footer PDF tidak menabrak konten
         filename: `Hasil Asesmen_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
@@ -780,45 +776,34 @@ function unduhPDF() {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Proses pembuatan PDF
     html2pdf().set(opsiPDF).from(area).toPdf().get('pdf').then(function (pdf) {
         try {
             const totalPages = pdf.internal.getNumberOfPages();
             const pageWidth = pdf.internal.pageSize.getWidth();
             const centerX = pageWidth / 2;
 
-            // Memasukkan semua teks ke setiap halaman PDF
             for (let i = 1; i <= totalPages; i++) {
                 pdf.setPage(i);
                 
-                // Baris 1: Judul dan Nama
+                // --- FOOTER SEMUA HALAMAN ---
                 pdf.setFontSize(9);
                 pdf.setTextColor(120, 120, 120); 
-                pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 17, { align: 'center' });
+                pdf.text(`Report Tes Minat Bakat - ${dataPeserta.nama || 'Peserta'} | BBK 8 Oro-Oro Ombo 1 UNAIR`, centerX, pdf.internal.pageSize.getHeight() - 7, { align: 'center' });
 
-                // Baris 2: Teks Perhatian KKN
-                pdf.setFontSize(7); 
-                pdf.setTextColor(150, 150, 150); 
-                pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN. Bukan untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 12, { align: 'center' });
-                
-                // Baris 3: Teks Hak Cipta
-                pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®.", centerX, pdf.internal.pageSize.getHeight() - 8, { align: 'center' });
+                // --- FOOTER KHUSUS HALAMAN TERAKHIR ---
+                if (i === totalPages) {
+                    pdf.setFontSize(7); 
+                    pdf.setTextColor(150, 150, 150); 
+                    pdf.text("Perhatian: Aplikasi ini dikembangkan secara independen untuk kegiatan sosial KKN BBK 8 Oro-Oro Ombo 1 UNAIR.", centerX, pdf.internal.pageSize.getHeight() - 17, { align: 'center' });
+                    pdf.text("Instrumen, tipologi, dan visualisasi pemetaan diadaptasi dari ST-30 hak cipta Talents Mapping®. Tidak untuk dikomersialkan.", centerX, pdf.internal.pageSize.getHeight() - 13, { align: 'center' });
+                }
             }
         } catch (e) {
-            console.error("Error saat memproses PDF:", e);
-            alert("Terjadi kesalahan saat menyusun PDF. Cek konsol browser (F12).");
+            console.error("Error PDF:", e);
         }
     }).save().then(function() {
-        // Kembalikan tombol dan footer di tampilan web
         btn.style.display = 'block';
-        if (footer) footer.style.display = 'block'; 
         area.classList.remove('mode-cetak');
-    }).catch(function(err) {
-        console.error("Gagal generate PDF:", err);
-        btn.style.display = 'block';
-        if (footer) footer.style.display = 'block'; 
-        area.classList.remove('mode-cetak');
-        alert("Gagal mengunduh PDF. Pastikan koneksi internet stabil.");
     });
 }
 // --- SISTEM PENYIMPANAN PROGRESS (SESSIONSTORAGE) ---
