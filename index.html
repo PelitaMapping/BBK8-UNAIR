@@ -769,7 +769,7 @@ function unduhPDF() {
 
     const opsiPDF = {
         margin: [10, 10, 10, 10],
-        filename: `Hasil Tes_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
+        filename: `Hasil Asesmen_${dataPeserta.nama ? dataPeserta.nama.replace(/\s+/g, '_') : 'Peserta'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
         pagebreak: { mode: ['css', 'legacy'] },
