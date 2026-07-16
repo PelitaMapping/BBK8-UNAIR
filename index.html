@@ -568,6 +568,9 @@
         document.getElementById("tahapIdentitas").classList.remove("active");
         document.getElementById("tahap1").classList.add("active");
         renderGrid("grid1", databasePeran, "counter1", "cekTahap1");
+
+        // INI BARIS YANG DITAMBAHKAN
+        simpanProgress('tahap1');
     }
 
     function renderGrid(containerId, dataArray, counterId, inputName) {
@@ -596,6 +599,9 @@
         document.getElementById("tahap2").classList.add("active");
         renderGrid("grid2", terpilih, "counter2", "cekTahap2");
         window.scrollTo(0, 0); 
+
+        // INI BARIS YANG DITAMBAHKAN
+        simpanProgress('tahap2');
     }
 
     function lanjutTahap3() {
@@ -609,6 +615,9 @@
         document.getElementById("tahap3").classList.add("active");
         renderGrid("grid3", sisaTahap1, "counter3", "cekTahap3");
         window.scrollTo(0, 0);
+
+        // INI BARIS YANG DITAMBAHKAN
+        simpanProgress('tahap3');
     }
 
     function tampilkanHasil() {
@@ -650,6 +659,8 @@ databasePeran.forEach(item => {
         
         renderPetaVisual();
         kalkulasiRekomendasi();
+        
+        simpanProgress('hasil');
     }
 
     function renderPetaVisual() {
@@ -793,6 +804,81 @@ function unduhPDF() {
         alert("Gagal mengunduh PDF. Pastikan koneksi internet stabil.");
     });
 }
+    // --- SISTEM PENYIMPANAN PROGRESS (SESSIONSTORAGE) ---
+    function simpanProgress(tahap) {
+        const dataSimpan = { dataPeserta, statusWarna, tahapAktif: tahap };
+        // Menyimpan data sementara yang akan hilang otomatis saat tab ditutup
+        sessionStorage.setItem('progressAsesmen', JSON.stringify(dataSimpan));
+    }
+
+    function centangPilihan(inputName, warnaYangDicari) {
+        const checkboxes = document.querySelectorAll(`input[name="${inputName}"]`);
+        checkboxes.forEach(cb => {
+            if (warnaYangDicari.includes(statusWarna[cb.value])) {
+                cb.checked = true;
+            }
+        });
+        const counterId = "counter" + inputName.replace("cekTahap", "");
+        updateCounter(inputName, counterId);
+    }
+
+    // Berjalan otomatis saat halaman dimuat (refresh)
+    window.onload = function() {
+        const tersimpan = sessionStorage.getItem('progressAsesmen');
+        if (tersimpan) {
+            const data = JSON.parse(tersimpan);
+            dataPeserta = data.dataPeserta;
+            statusWarna = data.statusWarna;
+
+            if(dataPeserta.nama) document.getElementById("inputNama").value = dataPeserta.nama;
+            if(dataPeserta.kelas) document.getElementById("inputKelas").value = dataPeserta.kelas;
+            if(dataPeserta.sekolah) document.getElementById("inputSekolah").value = dataPeserta.sekolah;
+
+            document.querySelectorAll('.stage').forEach(el => el.classList.remove('active'));
+
+            if (data.tahapAktif === 'tahap1') {
+                document.getElementById("tahap1").classList.add("active");
+                renderGrid("grid1", databasePeran, "counter1", "cekTahap1");
+                centangPilihan('cekTahap1', ['warna-kuning', 'warna-merah', 'warna-hitam']);
+            } 
+            else if (data.tahapAktif === 'tahap2') {
+                document.getElementById("tahap2").classList.add("active");
+                const terpilih = databasePeran.filter(item => statusWarna[item.id] !== 'warna-putih');
+                renderGrid("grid2", terpilih, "counter2", "cekTahap2");
+                centangPilihan('cekTahap2', ['warna-merah', 'warna-hitam']);
+            } 
+            else if (data.tahapAktif === 'tahap3') {
+                document.getElementById("tahap3").classList.add("active");
+                const sisaTahap1 = databasePeran.filter(item => statusWarna[item.id] === 'warna-putih' || statusWarna[item.id] === 'warna-hitam');
+                renderGrid("grid3", sisaTahap1, "counter3", "cekTahap3");
+                centangPilihan('cekTahap3', ['warna-hitam']);
+            } 
+            else if (data.tahapAktif === 'hasil') {
+                document.getElementById("hasil").classList.add("active");
+                document.getElementById("judulUtama").style.display = "none";
+                document.getElementById("garisBatas").style.display = "none";
+                
+                document.getElementById("resNama").innerText = `: ${dataPeserta.nama}`;
+                document.getElementById("resKelas").innerText = `: ${dataPeserta.kelas}`;
+                document.getElementById("resSekolah").innerText = `: ${dataPeserta.sekolah}`;
+                
+                const listMerah = document.getElementById("listKekuatan");
+                const listHitam = document.getElementById("listKelemahan");
+                listMerah.innerHTML = ""; listHitam.innerHTML = "";
+
+                databasePeran.forEach(item => {
+                    if (statusWarna[item.id] === 'warna-merah') {
+                        listMerah.innerHTML += `<li style="margin-bottom: 10px;"><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}<br><b>Potensi Karir:</b> ${item.potensiKarir} dll.</span></li>`;
+                    }
+                    if (statusWarna[item.id] === 'warna-hitam') {
+                        listHitam.innerHTML += `<li style="margin-bottom: 10px;"><b>${item.nama}</b><br><span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
+                    }
+                });
+                renderPetaVisual();
+                kalkulasiRekomendasi();
+            }
+        }
+    };
 </script>
 
 <div style="text-align: center; margin-top: 40px; padding: 10px; font-size: 0.7em; color: #777; border-top: 1px solid #eee;">
