@@ -636,12 +636,16 @@
 
 databasePeran.forEach(item => {
             if (statusWarna[item.id] === 'warna-merah') {
-                listMerah.innerHTML += `<li><b>${item.nama}</b><br>
+                listMerah.innerHTML += `<li style="margin-bottom: 10px;">
+                <b>${item.nama}</b><br>
+                <span style="color:#007bff; font-size:0.85em; font-weight:bold;">Area Klaster Peta: ${item.cluster}</span><br>
                 <span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}<br>
                 <b>Potensi Karir:</b> ${item.potensiKarir} dll.</span></li>`;
             }
             if (statusWarna[item.id] === 'warna-hitam') {
-                listHitam.innerHTML += `<li><b>${item.nama}</b><br>
+                listHitam.innerHTML += `<li style="margin-bottom: 10px;">
+                <b>${item.nama}</b><br>
+                <span style="color:#007bff; font-size:0.85em; font-weight:bold;">Area Klaster Peta: ${item.cluster}</span><br>
                 <span style="color:#555; font-size:0.9em;">${item.deskripsiHasil}</span></li>`;
             }
         });
